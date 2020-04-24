@@ -16,12 +16,13 @@
                 background="#ababab"
                 img-width="500"
                 img-height="375"
-                style="text-shadow: 1px 1px 2px #333;"
+                style="text-shadow: 1px 1px 2px #333; max-width:700px"
               >
                 <b-carousel-slide
                   v-for="(photo, key) in sorteio.photos"
                   :key="key"
                   :img-src="photo"
+                  class="carrousel-picture"
                 ></b-carousel-slide>
               </b-carousel>
             </div>
@@ -36,35 +37,34 @@
               </p>
             </div>
           </div>
+          <!-- Scroll down indication -->
+          <div class="scroll-down"></div>
         </div>
         <div class="section rifas">
           <!-- TODO: find out title -->
           <!-- <h2>Reservar Rifa</h2> -->
           <div class="legenda">
+            <!-- TODO: get tickets ammount on button -->
             <b-button pill variant="light" @click="filterSelectedNumbers()">Todos</b-button>
-            <b-button
-              pill
-              class="avaliable"
-              @click="filterSelectedNumbers('avaliable')"
-            >001 Disponíveis</b-button>
-            <b-button
-              pill
-              class="reserved"
-              @click="filterSelectedNumbers('reserved')"
-            >005 Reservados</b-button>
-            <b-button pill class="paid" @click="filterSelectedNumbers('paid')">001 Pagos</b-button>
+            <b-button pill class="avaliable" @click="filterSelectedNumbers('avaliable')">Disponíveis</b-button>
+            <b-button pill class="reserved" @click="filterSelectedNumbers('reserved')">Reservados</b-button>
+            <b-button pill class="paid" @click="filterSelectedNumbers('paid')">Pagos</b-button>
           </div>
           <div class="numeros" id="numeroSorteio">
-            <!-- HERE -->
+            <!-- TODO: message for no numbers -->
+            <div v-if="selectedNumbers.length == 0">
+              <h4 class="text-secondary">Nenhum número disponível</h4>
+            </div>
             <span v-for="(item, key) of selectedNumbers" :key="key">
+              <!-- TODO: Style tooltip   -->
               <span
                 :class="'rifa ' + ticketStatus(item)"
                 :id="'ticket-'+item"
-                title="Disponível"
                 @click="showModal(item)"
+                v-b-tooltip.hover
+                :title="tooltipTitle(item)"
               >
                 <p class="content">{{item}}</p>
-                <!-- TODO: add tooltip -->
               </span>
             </span>
             <b-modal
@@ -188,27 +188,43 @@ export default {
 
   methods: {
     filterSelectedNumbers(ticketStatus = "") {
-      if (ticketStatus) {
+      // TODO > Filter avaliable tickets
+      // ! Maximum stack error
+      if (ticketStatus == "avaliable") {
+        alert("nao implementado ainda");
+        // let newTicketArray = [];
+        // const notAvaliableTickets = this.sorteio.tickets.map(t =>
+        //   parseInt(t.ticket_number)
+        // );
+        // // Map a new array excluding the reserved and paid ones
+        // for (let i = 0; i <= this.sorteio.ammount; i++) {
+        //   if (!notAvaliableTickets.includes(i)) newTicketArray.push(i);
+        // }
+        // this.selectedNumbers = newTicketArray;
+      } else if (ticketStatus) {
         let newarray = this.sorteio.tickets.filter(
           t => t.status == ticketStatus
         );
         this.selectedNumbers = newarray.map(t => t.ticket_number);
-      } else if (ticketStatus == "avaliable") {
-        // TODO > add register ticket
-        console.log("nao implementado ainda");
       } else {
         this.selectedNumbers = this.sorteio.ammount;
       }
     },
     ticketStatus(ticketNumber) {
-      if (ticketNumber <= 20) {
-        const ticket = this.sorteio.tickets.filter(
-          e => e.ticket_number == ticketNumber
-        )[0];
-        if (ticket) return ticket.status;
-      }
+      // Description - Gets ticket reserved or paid if exists and style it with the respective class status
+      const ticket = this.sorteio.tickets.filter(
+        e => e.ticket_number == ticketNumber
+      )[0];
+      if (ticket) return ticket.status;
       // classreturn
       return "avaliable";
+    },
+    tooltipTitle(ticketNumber) {
+      const ticket = this.sorteio.tickets.filter(
+        e => e.ticket_number == ticketNumber
+      )[0];
+      if (ticket) return ticket.name;
+      return "Disponível";
     },
     showModal(id) {
       this.newTicket.ticket_number = id;
@@ -216,7 +232,9 @@ export default {
         document.getElementById("ticket-" + id).classList.contains("avaliable")
       )
         this.$bvModal.show("modal-1");
-      else alert("nao é possivel reservar");
+      else;
+      // this.reserveMessage = 'Este numero já está reservado'
+      // alert("nao é possivel reservar");
     },
     hideModal() {
       this.$bvModal.hide("modal-1");
@@ -261,21 +279,28 @@ export default {
         this.confirmarReserva();
       }
     },
-    confirmarReserva() {
-      alert("a implementar");
-      // TODO: create method to insert ticket
-      // if (!SorteioService.insertRifa(this.newTicket))
-      //   alert("Já existe uma rifa com este numero");
+    async confirmarReserva() {
+      const message = await SorteioService.insertTicket(
+        this.newTicket,
+        this.sorteio._id
+      );
+      if (message.status == 201) {
+        // If sucessful, then refresh the collection
+        this.sorteio = await SorteioService.getSorteioById(
+          this.$route.params.id
+        );
+        this.$bvModal.hide("modal-1");
+        // TODO: Send automatic email here
+      }
     }
   },
   async created() {
     try {
-      const sorteios = await SorteioService.getSorteios();
-      this.sorteio = sorteios.filter(e => e._id == this.$route.params.id)[0];
-      this.newTicket.sorteio_id = this.sorteio._id;
+      // const sorteios = await SorteioService.getSorteios();
+      // this.sorteio = sorteios.filter(e => e._id == this.$route.params.id)[0];
+      this.sorteio = await SorteioService.getSorteioById(this.$route.params.id);
     } catch {
       this.message = "Error";
-      // this.$router.push("/");
     } finally {
       if (this.sorteio) {
         for (let i = 0; i <= this.sorteio.ammount; i++) {
@@ -297,14 +322,23 @@ $federal: #ff7b00;
 $black: #000;
 $gray: #545b62;
 
+.tooltip {
+  .tooltip-inner {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+}
 .b-overlay-wrap {
   min-height: 85vh;
 }
+
 .section {
   text-align: center;
   padding: $section-padding $side-padding;
 }
 .info {
+  min-height: 85vh;
+  position: relative;
   .flex {
     display: flex;
     flex-direction: row;
@@ -316,6 +350,43 @@ $gray: #545b62;
         margin: auto 0;
         text-align: start;
       }
+      &.picture {
+        .carousel {
+          margin-left: auto;
+        }
+        .carrousel-picture {
+          object-fit: fill;
+        }
+      }
+    }
+  }
+  .scroll-down {
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    height: 50px;
+    width: 50px;
+    transform: translateX(-50%) rotateZ(45deg);
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    opacity: 0;
+    animation: animate 2s alternate infinite;
+  }
+  @keyframes animate {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 25;
+    }
+    50% {
+      opacity: 50;
+    }
+    75% {
+      opacity: 75;
+    }
+    100% {
+      opacity: 100;
     }
   }
 }
@@ -338,7 +409,6 @@ $gray: #545b62;
       margin: 5px 2px;
       width: 50px;
       height: 50px;
-
       border-radius: 30px;
       display: flex;
       align-items: center;

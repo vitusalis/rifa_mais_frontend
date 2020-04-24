@@ -16,10 +16,10 @@
           :id="sorteio['_id']"
           :key="index"
           :title="sorteio.name + ' - ' + sorteio.info.ano"
-          :sub-title="`R$`+sorteio.ticket_price"
+          :sub-title="`A partir de R$`+sorteio.ticket_price"
           :img-src="sorteio.photos[0]"
         >
-          <p></p>
+          <!-- TODO: Button based on sorteio.avaliabletickets -->
           <router-link :to="{name: 'Sorteio', params:{ id: sorteio._id}}" tag="span">
             <b-button pill>Comprar</b-button>
           </router-link>
@@ -96,6 +96,11 @@ $side-padding: 30px;
         border: none;
         text-transform: uppercase;
         width: 100%;
+      }
+      .card-img {
+        width: 300px;
+        height: 225px;
+        object-fit: cover;
       }
     }
   }
