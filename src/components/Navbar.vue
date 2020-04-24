@@ -27,8 +27,8 @@
       </div>
       <div class="menu hidden" id="menu">
         <div class="left">
-          <a class="link" href="#!">Inicio</a>
-          <a class="link" href="#!">Nossas Rifas</a>
+          <router-link class="link" to="/">Início</router-link>
+          <router-link class="link" to="/sorteios">Nossas Rifas</router-link>
           <a class="link" href="#!">Parcerias</a>
         </div>
         <div class="right">
@@ -54,7 +54,7 @@
 export default {
   methods: {
     toggle(id) {
-      var el = document.querySelector(id);
+      const el = document.querySelector(id);
       if (el.classList.contains("hidden"))
         el.classList.replace("hidden", "visible");
       else el.classList.replace("visible", "hidden");

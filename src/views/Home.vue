@@ -88,6 +88,12 @@ export default {
 $section-padding: 50px;
 $side-padding: 30px;
 
+$warning: #ffb200;
+$danger: #b91e1e;
+$federal: #ff7b00;
+$black: #000;
+$gray: #545b62;
+
 @media screen and (max-width: 1000px) {
   .home {
     .background {
@@ -160,12 +166,12 @@ $side-padding: 30px;
         text-transform: uppercase;
         font-weight: 500;
         transition: all 0.3s ease;
-        background-color: rgba($color: #000000, $alpha: 0);
-        color: inherit;
+        color: #fff;
+        border: none;
+        background-color: $federal;
         &:hover {
-          background-color: #fff;
-          border-color: rgba($color: #000000, $alpha: 0);
-          color: rgba($color: #000000, $alpha: 1);
+          // background-color: #ff7900;
+          // border-color: $federal;
         }
       }
     }
