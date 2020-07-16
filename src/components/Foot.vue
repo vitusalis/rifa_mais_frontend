@@ -1,76 +1,58 @@
 <template>
   <footer>
-    <div class="md-col-12 lg-col-4">
+    <div class="md-col-12 lg-col-4 item">
       <h6 class="title">Contato</h6>
       <ul>
         <li>
           <i class="fas fa-phone-alt"></i>
           Telefone:
-          <a href="#!" title="Ligar">(21)91234-5678</a>
+          <a
+            href="https://wa.me/5521980066366"
+            title="Nova conversa"
+          >21 98006-6366</a>
         </li>
         <li>
           <i class="fas fa-envelope"></i>
           Email:
-          <a href="#!" title="Enviar email">contato@rifaquesoma.com.br</a>
+          <a
+            href="mailto:rifaquesoma@gmail.com"
+            target="_blank"
+            title="Enviar email"
+          >rifaquesoma@gmail.com</a>
         </li>
         <li>
-          <i class="fas fa-map-marker-alt"></i>
-          Endereço:
+          <i class="fab fa-instagram"></i>
+          Instagram:
           <a
+            href="https://www.instagram.com/rifaquesoma/"
             target="_blank"
-            title="Navegar com o Google Maps"
-            href="https://goo.gl/maps/1HgY4bzzaYAeGSHF7"
-          >Av Rio Branco 1500 - Sala 2</a>
+            title="Instagram"
+          >rifaquesoma</a>
         </li>
       </ul>
     </div>
-    <div class="md-col-12 lg-col-4">
-      <h6 class="title">Contato</h6>
-      <ul>
+
+    <div class="md-col-12 lg-col-4 item center">
+      <h6 class="title">Links</h6>
+      <ul style class="center">
         <li>
-          <i class="fas fa-phone-alt"></i>
-          Telefone:
-          <a href="#!" title="Ligar">(21)91234-5678</a>
+          <router-link class="link" to="/">Início</router-link>
         </li>
         <li>
-          <i class="fas fa-envelope"></i>
-          Email:
-          <a href="#!" title="Enviar email">contato@rifaquesoma.com.br</a>
+          <router-link class="link" to="/sorteios">Nossas Rifas</router-link>
+        </li>
+
+        <li>
+          <router-link class="link" to="/parcerias">Parcerias</router-link>
         </li>
         <li>
-          <i class="fas fa-map-marker-alt"></i>
-          Endereço:
-          <a
-            target="_blank"
-            title="Navegar com o Google Maps"
-            href="https://goo.gl/maps/1HgY4bzzaYAeGSHF7"
-          >Av Rio Branco 1500 - Sala 2</a>
+          <router-link class="link" to="/info">Informações</router-link>
         </li>
       </ul>
     </div>
-    <div class="md-col-12 lg-col-4">
-      <h6 class="title">Contato</h6>
-      <ul>
-        <li>
-          <i class="fas fa-phone-alt"></i>
-          Telefone:
-          <a href="#!" title="Ligar">(21)91234-5678</a>
-        </li>
-        <li>
-          <i class="fas fa-envelope"></i>
-          Email:
-          <a href="#!" title="Enviar email">contato@rifaquesoma.com.br</a>
-        </li>
-        <li>
-          <i class="fas fa-map-marker-alt"></i>
-          Endereço:
-          <a
-            target="_blank"
-            title="Navegar com o Google Maps"
-            href="https://goo.gl/maps/1HgY4bzzaYAeGSHF7"
-          >Av Rio Branco 1500 - Sala 2</a>
-        </li>
-      </ul>
+
+    <div class="md-col-12 lg-col-4 item center">
+      <img src="../assets/logo.png" class="image" alt="footer-logo" />
     </div>
   </footer>
 </template>
@@ -79,15 +61,16 @@
 export default {};
 </script>
 <style lang="scss" scoped>
-$section-padding: 50px;
+$section-padding: 30px;
 $side-padding: 30px;
 
 @media screen and (max-width: 1000px) {
   footer {
     flex-direction: column;
     align-items: center;
-    & > * {
-      margin: 20px auto;
+    height: 100vh;
+    .item {
+      margin: 10px;
     }
   }
 }
@@ -102,6 +85,21 @@ footer {
   background-color: #111111;
   color: #cccccc;
   padding: $section-padding $side-padding;
+  .item {
+    flex: 1;
+    .title {
+      margin: 8px 0;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .center {
+    text-align: center;
+  }
+  .right {
+    text-align: right;
+  }
   ul {
     padding: 0;
   }
@@ -110,6 +108,10 @@ footer {
     &:hover {
       text-decoration: none;
     }
+  }
+  .image {
+    max-height: 100px;
+    object-fit: contain;
   }
 }
 </style>

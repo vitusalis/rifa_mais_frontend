@@ -3,23 +3,31 @@
     <div class="links">
       <ul>
         <li>
-          <a class="link" href="#!" title="Telefone">(21)91234-5678</a>
+          <a href="https://wa.me/5521980066366" target="_blank" title="Ligar">21 98006-6366</a>
         </li>
         <li>
-          <i class="far fa-envelope fa-md link"></i>
+          <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
+            <i class="far fa-envelope fa-md link"></i>
+          </a>
         </li>
 
         <li>
-          <i class="fab fa-whatsapp fa-md link"></i>
+          <a href="https://wa.me/5521980066366" title="Nova conversa">
+            <i class="fab fa-whatsapp fa-md link"></i>
+          </a>
         </li>
         <li>
-          <i class="fab fa-instagram fa-md link"></i>
+          <a href="https://www.instagram.com/rifasquesomam/" target="_blank" title="Instagram">
+            <i class="fab fa-instagram fa-md link"></i>
+          </a>
         </li>
       </ul>
     </div>
     <div class="navigation">
       <div class="logo">
-        <img class="logo-img" src="../assets/rifa5.png" alt="logo" title="logo" />
+        <router-link to="/" tag="a">
+          <img class="logo-img" src="../assets/logo.png" alt="logo" />
+        </router-link>
 
         <b-button variant="outline-light" class="toggle" @click="toggle('div#menu')">
           <i class="fas fa-bars"></i>
@@ -29,21 +37,26 @@
         <div class="left">
           <router-link class="link" to="/">Início</router-link>
           <router-link class="link" to="/sorteios">Nossas Rifas</router-link>
-          <a class="link" href="#!">Parcerias</a>
         </div>
         <div class="right">
-          <a class="link" href="#!">Informações</a>
-          <a class="link" href="#!">Fale conosco</a>
+          <router-link class="link" to="/parcerias">Parcerias</router-link>
+          <router-link class="link" to="/info">Informações</router-link>
         </div>
         <div class="menu-contact">
           <div class="icons">
-            <i class="far fa-envelope fa-lg"></i>
+            <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
+              <i class="far fa-envelope fa-md link"></i>
+            </a>
 
-            <i class="fab fa-whatsapp fa-lg"></i>
+            <a href="https://wa.me/5521980066366" title="Nova conversa">
+              <i class="fab fa-whatsapp fa-md link"></i>
+            </a>
 
-            <i class="fab fa-instagram fa-lg"></i>
+            <a href="https://www.instagram.com/rifasquesomam/" target="_blank" title="Instagram">
+              <i class="fab fa-instagram fa-md link"></i>
+            </a>
           </div>
-          <a href="#!" title="Telefone">(21)91234-5678</a>
+          <a href="https://wa.me/5521980066366" target="_blank" title="Ligar">21 98006-6366</a>
         </div>
       </div>
     </div>
@@ -58,7 +71,6 @@ export default {
       if (el.classList.contains("hidden"))
         el.classList.replace("hidden", "visible");
       else el.classList.replace("visible", "hidden");
-      console.log(el.classList);
     }
   }
 };
@@ -66,6 +78,10 @@ export default {
 
 <style lang="scss" scoped>
 $side-padding: 30px;
+ul {
+  margin: 0;
+  padding: 0;
+}
 
 @media screen and (max-width: 1000px) {
   nav {
@@ -85,9 +101,7 @@ $side-padding: 30px;
       .logo {
         position: relative;
         width: 100%;
-        .logo-img {
-          max-width: 70vw;
-        }
+
         .toggle {
           position: absolute;
           top: 50%;
@@ -108,6 +122,11 @@ $side-padding: 30px;
         z-index: 1;
         padding: 25% 0 0;
         transition: width 0.3s ease;
+        a {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
         &.hidden {
           width: 0;
         }
@@ -122,12 +141,14 @@ $side-padding: 30px;
           position: absolute;
           bottom: 0;
           left: 50%;
-          margin-bottom: 70px;
+          width: 70vh;
+          margin-bottom: 15vh;
           display: flex;
           flex-direction: column;
           .icons {
-            i {
-              margin: 20px;
+            a {
+              margin: 10px;
+              padding: 0;
             }
           }
         }
@@ -152,13 +173,13 @@ $side-padding: 30px;
     .menu-contact {
       display: none;
     }
+    min-height: 15vh;
     .navigation {
       position: relative;
       flex-direction: row;
       padding: 40px $side-padding;
       .logo-img {
         position: absolute;
-        max-height: 100px;
         top: 0px;
         left: 50%;
         transform: translateX(-50%);
@@ -182,18 +203,26 @@ $side-padding: 30px;
 nav {
   display: flex;
   flex-direction: column;
+  .navigation {
+    .logo-img {
+      max-height: 100px;
+    }
+  }
 
   .links {
     text-align: right;
     width: 100%;
-    padding: 10px $side-padding 5px;
+    padding: 5px $side-padding;
     border-bottom: 1px solid #1b1b1b;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+    color: white;
     ul {
       li {
         display: inline;
         margin: 0 10px;
+        color: inherit;
+        a {
+          color: inherit;
+        }
         .link {
           text-transform: capitalize;
           color: inherit;
@@ -207,9 +236,9 @@ nav {
   .navigation {
     display: flex;
     align-items: center;
+    // border-bottom: 1px solid #1b1b1b;
     .link {
       color: inherit;
-
       transition: transform 0.2s ease;
       &:hover {
         text-decoration: none;

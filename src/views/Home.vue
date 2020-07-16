@@ -1,96 +1,147 @@
 <template>
   <div class="home">
-    <div class="background" id="background">
-      <div class="center">
-        <h2 class="title">CONCORRA A UM TESLA</h2>
-        <h3>Modelo Truck</h3>
-        <p>Sorteio em 3 dias</p>
+    <b-overlay :show="!bannerSlide.length" rounded="sm" :opacity="0" class="full-height">
+      <div class="slideshow" id="slideshow">
+        <!-- class ternary bind to display first item  -->
+        <div
+          :class="'slide slide-'+key + [key==0 ?  ' visible' : '']"
+          :id="'slide-'+key"
+          v-for="(item, key) of bannerSlide"
+          :key="key"
+        >
+          <div class="background" id="background" :style="'background-image: url('+item.image+')'">
+            <div class="center">
+              <h2 class="title" v-text="item.title"></h2>
+              <h3 class="sub-title" v-text="item.subTitle"></h3>
+              <p class="description" v-text="item.description"></p>
+              <div>
+                <router-link
+                  v-if="item.linkId"
+                  :to="{name: 'Sorteios', params:{id: item.linkId}}"
+                  tag="button"
+                  class="button"
+                >COMPRAR</router-link>
 
-        <div>
-          <button class="button">Comprar</button>
+                <router-link
+                  v-else
+                  :to="{name: 'Sorteios'}"
+                  tag="button"
+                  class="button"
+                >COMPRAR RIFAS</router-link>
+
+                <router-link v-if="item.link" :to="item.link" tag="button" class="button">SAIBA MAIS</router-link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </b-overlay>
 
-    <div class="parcerias">
-      <h2 class="title">Formas de Pagamento</h2>
-      <div class="slideshow">
-        <b-card>
-          <img
-            class="card-img"
-            src="https://logodownload.org/wp-content/uploads/2014/05/itau-logo-1.png"
-            alt
-          />
-        </b-card>
-        <b-card>
-          <img
-            class="card-img"
-            src="https://logodownload.org/wp-content/uploads/2018/09/bradesco-logo-novo-2018-13.png"
-            alt
-          />
-        </b-card>
-        <b-card>
-          <img
-            class="card-img"
-            src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-10.png"
-            alt
-          />
-        </b-card>
-
-        <b-card>
-          <img
-            class="card-img"
-            src="https://logodownload.org/wp-content/uploads/2017/05/santander-logo-12.png"
-            alt
-          />
-        </b-card>
-        <b-card>
-          <img
-            class="card-img"
-            src="https://logodownload.org/wp-content/uploads/2014/10/paypal-logo-1.png"
-            alt
-          />
-        </b-card>
-        <b-card>
-          <img
-            class="card-img"
-            src="https://logodownload.org/wp-content/uploads/2019/06/mercado-pago-logo-6.png  "
-            alt
-          />
-        </b-card>
-      </div>
-    </div>
+    <payment-methods></payment-methods>
   </div>
 </template>
 
 <script>
+import SorteioService from "../SorteioService";
+import PaymentMethods from "../components/PaymentMethods";
+
 export default {
-  name: "Home"
-  // mounted() {
-  //   var navH = document.getElementsByTagName("nav")[0].clientHeight;
-  //   var bodyH = Math.max(
-  //     document.documentElement.clientHeight,
-  //     window.innerHeight || 0
-  //   );
-  //   // console.log(navH);
-  //   // console.log(bodyH);
-  //   var banner = document.body.querySelector("div#background");
-  //   console.log(banner);
-  //   banner.style.height = bodyH - navH + "px";
-  //   console.log(banner.style.height);
-  // }
+  name: "Home",
+  data() {
+    return {
+      message: "",
+      bannerSlide: [],
+      slide_index: 0,
+      slideshow_on: true
+    };
+  },
+  methods: {
+    slideshow() {
+      setInterval(() => {
+        if (this.slideshow_on) {
+          const slideshow = document.querySelector("div#slideshow");
+          if (slideshow) {
+            const slides = Array.from(
+              slideshow.getElementsByClassName("slide")
+            );
+            let current_slide = Array.from(
+              slideshow.getElementsByClassName(`slide-${this.slide_index}`)
+            )[0];
+            current_slide = Array.from(
+              slideshow.getElementsByClassName(`slide-${this.slide_index}`)
+            )[0];
+            const next_slide = slides.find(e => e != current_slide);
+            if (current_slide) {
+              current_slide.classList.remove("visible");
+              next_slide.classList.add("visible");
+              this.slide_index = next_slide.id.split("slide-")[1];
+            }
+          }
+        }
+      }, 6000);
+    },
+    getDescription(date) {
+      if (date) {
+        const days = Math.ceil(
+          Math.abs(new Date(date) - new Date()) / (1000 * 60 * 60 * 24)
+        );
+        return `Sorteio em ${days} dias`;
+      }
+      return "";
+    }
+  },
+  components: { "payment-methods": PaymentMethods },
+  async created() {
+    try {
+      let response = await SorteioService.getSorteios();
+      if (response.msg) {
+        this.message = response.msg;
+      } else {
+        const sorteio = response[0];
+        this.bannerSlide.push({
+          title: `CONCORRA A UM ${sorteio.name.toUpperCase()}`,
+          subTitle: `Apenas R$ ${sorteio.ticket_price},00`,
+          description: this.getDescription(sorteio.date),
+          image: sorteio.cover
+            ? sorteio.cover
+            : "https://i.postimg.cc/CKspSPzh/not-found.png",
+          linkId: sorteio.id
+        });
+        // TODO UPDATE THIS
+        this.bannerSlide.push({
+          title: "UNICEF",
+          subTitle:
+            "A cada sorteio realizado uma parte dos lucros é destinada a uma boa causa como a UNICEF",
+          link: "/parcerias",
+          image: "https://i.postimg.cc/j5W1wfFT/child-1864718-1920.jpg"
+        });
+      }
+    } catch (error) {
+      this.message = error.message;
+    }
+    this.slideshow();
+  },
+  mounted() {
+    const slideshow = document.querySelector("div#slideshow");
+    slideshow.addEventListener("mouseover", () => {
+      this.slideshow_on = false;
+    });
+    slideshow.addEventListener("mouseout", () => {
+      this.slideshow_on = true;
+    });
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;900&display=swap");
 
-$section-padding: 50px;
+$section-padding: 70px;
 $side-padding: 30px;
 
 $warning: #ffb200;
 $danger: #b91e1e;
-$federal: #ff7b00;
+$clay: #ff914d;
 $black: #000;
 $gray: #545b62;
 
@@ -107,44 +158,47 @@ $gray: #545b62;
         font-size: 2.5em;
       }
     }
-    .parcerias {
-      .slideshow {
-        .card {
-          width: 120px;
-          height: 90px;
-        }
-      }
-    }
   }
 }
 @media screen and (min-width: 1000px) {
   .home {
+    min-height: 85vh;
     .background {
-      height: calc(100vh - 144px);
+      height: 85vh;
     }
     .center {
       .title {
         font-size: 4em;
-      }
-    }
-    .parcerias {
-      .slideshow {
-        .card {
-          width: 150px;
-          height: 100px;
-        }
+        text-transform: uppercase;
       }
     }
   }
 }
 
+.full-height {
+  min-height: 85vh;
+}
 .home {
   position: relative;
   z-index: 0;
+  .slideshow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: auto;
+    .slide {
+      display: none;
+    }
+    .visible {
+      display: initial;
+      width: 100vw;
+    }
+  }
   .background {
     position: relative;
     width: 100%;
-    background-image: url("https://revistacarro.com.br/wp-content/uploads/2019/11/Tesla-Cybertruck_4.jpg");
+
+    background-position-y: 50%;
     background-size: cover;
     .center {
       background-color: rgba($color: #000000, $alpha: 0.4);
@@ -163,58 +217,18 @@ $gray: #545b62;
       }
       .button {
         padding: 15px 30px;
+        margin: 10px;
         text-transform: uppercase;
+        font-size: 1.3em;
         font-weight: 500;
         transition: all 0.3s ease;
         color: #fff;
         border: none;
-        background-color: $federal;
-        &:hover {
-          // background-color: #ff7900;
-          // border-color: $federal;
-        }
-      }
-    }
-  }
-  .parcerias {
-    padding: $section-padding $side-padding;
-    text-align: center;
-    .title {
-      margin-bottom: 20px;
-    }
-    .slideshow {
-      background-color: rgba($color: #ffffff, $alpha: 0);
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      justify-content: center;
-      padding: 10px 0;
-      .row {
-        display: flex;
-        flex-direction: row;
-        margin: 0;
-      }
-      .card {
-        margin: 15px;
-        border: 1px solid #fff;
-        // border-radius: 0;
-        background-color: rgba($color: #ffffff, $alpha: 0.9);
-        transition: all 0.4s ease;
-        &:hover {
-          transform: scale(1.1);
-        }
-        .card-body {
-          padding: 10px;
-          display: flex;
-          align-content: center;
-          justify-content: center;
 
-          .card-img {
-            max-width: 100px;
-            object-fit: contain;
-          }
-        }
+        background-color: $clay;
+        -webkit-box-shadow: 10px 10px 28px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 10px 10px 28px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 10px 10px 28px 0px rgba(0, 0, 0, 0.75);
       }
     }
   }

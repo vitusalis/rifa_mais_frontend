@@ -1,15 +1,16 @@
 <template>
   <div>
-    <h1 v-if="message" v-text="message"></h1>
-
-    <b-overlay :show="!sorteio && !message" rounded="sm" :opacity="0">
-      <div class="sorteio" v-if="sorteio">
+    <div style="text-align:center">
+      <h1 v-if="message && !raffle" v-text="message"></h1>
+    </div>
+    <b-overlay :show="!raffle && !message" rounded="sm" :opacity="0" class="full-height">
+      <div class="raffle" v-if="raffle">
         <div class="section info">
-          <h1 v-text="sorteio.name + ' - ' + sorteio.info.ano"></h1>
-          <h4 class="text-secondary" v-text="sorteio.date"></h4>
-          <div v-if="sorteio" class="flex">
+          <h1 v-text="raffle.name"></h1>
+          <h4 class="text-secondary" v-text="formatSorteioDate(raffle.date)"></h4>
+          <div v-if="raffle" class="flex">
             <div class="column picture">
-              <!-- <img class="img" :src="sorteio.photos[0]" alt /> -->
+              <!-- <img class="img" :src="raffle.photos[0]" alt /> -->
               <b-carousel
                 :interval="4000"
                 controls
@@ -19,144 +20,195 @@
                 style="text-shadow: 1px 1px 2px #333; max-width:700px"
               >
                 <b-carousel-slide
-                  v-for="(photo, key) in sorteio.photos"
-                  :key="key"
-                  :img-src="photo"
+                  :img-src="raffle.cover ? raffle.cover: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
                   class="carrousel-picture"
                 ></b-carousel-slide>
+
+                <div
+                  v-for="(photo, key) in [raffle.photo_1,raffle.photo_3,raffle.photo_4]"
+                  :key="key"
+                >
+                  <b-carousel-slide
+                    v-if="photo"
+                    :img-src="photo ? photo: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
+                    class="carrousel-picture"
+                  ></b-carousel-slide>
+                </div>
               </b-carousel>
             </div>
-            <div class="column details">
-              <p v-for="(value, key) in sorteio.info" :key="key">
-                <!-- array -->
-                <span v-if="key.toLowerCase() == 'outros'">
-                  <span v-text="key.toUpperCase() + ' - '"></span>
-                  <span v-for="(item, k) in value" :key="k" v-text="item + ', '"></span>
-                </span>
-                <span v-else>{{key.toUpperCase()}} - {{value}}</span>
-              </p>
+            <div class="column details" v-if="raffle.info">
+              <p v-for="info in raffle.info.split(';')" :key="info" v-text="info"></p>
             </div>
           </div>
-          <!-- Scroll down indication -->
-          <div class="scroll-down"></div>
         </div>
         <div class="section rifas">
-          <!-- TODO: find out title -->
-          <!-- <h2>Reservar Rifa</h2> -->
           <div class="legenda">
-            <!-- TODO: get tickets ammount on button -->
             <b-button pill variant="light" @click="filterSelectedNumbers()">Todos</b-button>
-            <b-button pill class="avaliable" @click="filterSelectedNumbers('avaliable')">Disponíveis</b-button>
-            <b-button pill class="reserved" @click="filterSelectedNumbers('reserved')">Reservados</b-button>
-            <b-button pill class="paid" @click="filterSelectedNumbers('paid')">Pagos</b-button>
+            <b-button pill class="AVA" @click="filterSelectedNumbers('AVA')">Disponíveis</b-button>
+            <b-button pill class="RES" @click="filterSelectedNumbers('RES')">Reservados</b-button>
+            <b-button pill class="PAI" @click="filterSelectedNumbers('PAI')">Pagos</b-button>
+            <b-button pill class="MIN" @click="filterSelectedNumbers('MIN')">Meus Números</b-button>
           </div>
+
           <div class="numeros" id="numeroSorteio">
-            <!-- TODO: message for no numbers -->
             <div v-if="selectedNumbers.length == 0">
               <h4 class="text-secondary">Nenhum número disponível</h4>
             </div>
+
             <span v-for="(item, key) of selectedNumbers" :key="key">
-              <!-- TODO: Style tooltip   -->
               <span
                 :class="'rifa ' + ticketStatus(item)"
                 :id="'ticket-'+item"
                 @click="showModal(item)"
-                v-b-tooltip.hover
-                :title="tooltipTitle(item)"
               >
+                <b-tooltip
+                  v-if="tooltipTitle(item) != 'Disponível'"
+                  :target="'ticket-'+item"
+                  triggers="hover"
+                  :title="tooltipTitle(item)"
+                ></b-tooltip>
                 <p class="content">{{item}}</p>
               </span>
             </span>
+
+            <!-- Reserva -->
             <b-modal
-              id="modal-1"
-              :title="'Reservar Rifa de ' + sorteio.name "
+              id="reservaModal"
+              :title="'Reservar Rifa de ' + raffle.name "
               header-text-variant="dark"
               body-text-variant="dark"
               footer-text-variant="dark"
               hide-footer
             >
-              <form id="novaReserva">
-                <!-- RifaSelected -->
-                <b-form-group
-                  id="number-label"
-                  label="Número Escolhido:"
-                  label-for="numberSelected"
-                >
-                  <b-button
-                    variant="success"
-                    id="numberSelected"
-                    v-text="newTicket.ticket_number"
-                    disabled
-                    class="modalNumber"
-                  ></b-button>
-                </b-form-group>
+              <b-overlay :show="formOverlay" rounded="sm" :opacity="0">
+                <form id="novaReserva">
+                  <!-- TODO: IMPLEMENT CAPTCHA -->
 
-                <b-form-group
-                  id="name-label"
-                  label="Nome:"
-                  label-for="name"
-                  description="Ex.: Maria Silva"
-                  required
-                >
-                  <b-form-input
-                    id="name"
-                    v-model="newTicket.name"
-                    type="text"
-                    required
-                    placeholder="Nome Completo"
-                  ></b-form-input>
-                </b-form-group>
+                  <!-- RifaSelected -->
+                  <b-form-group
+                    id="number-label"
+                    label="Número Escolhido:"
+                    label-for="numberSelected"
+                  >
+                    <b-button class="clay" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
+                  </b-form-group>
 
-                <!-- Email -->
-                <b-form-group
-                  id="email-label"
-                  label="Email:"
-                  label-for="email"
-                  description="Ex.: marisilva@gmail.com"
-                  required
-                >
-                  <b-form-input
-                    id="email"
-                    v-model="newTicket.email"
-                    type="email"
+                  <b-form-group
+                    id="name-label"
+                    label="Nome:"
+                    label-for="name"
+                    description="Ex.: Maria Silva"
                     required
-                    placeholder="Seu email"
-                  ></b-form-input>
-                </b-form-group>
+                  >
+                    <b-form-input
+                      id="name"
+                      v-model="newTicket.name"
+                      type="text"
+                      required
+                      placeholder="Nome Completo"
+                    ></b-form-input>
+                  </b-form-group>
 
-                <!-- Phone -->
-                <b-form-group
-                  id="phone-label"
-                  label="Telefone:"
-                  label-for="phone"
-                  description="Ex.: 21 99876 5432"
-                  required
-                >
-                  <b-form-input
-                    id="phone"
-                    v-model="newTicket.phone"
-                    type="number"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  <!-- Email -->
+                  <b-form-group
+                    id="email-label"
+                    label="Email:"
+                    label-for="email"
+                    description="Ex.: marisilva@gmail.com"
                     required
-                    placeholder="Seu telefone"
-                    min="11"
-                    max="11"
-                  ></b-form-input>
-                </b-form-group>
-              </form>
+                  >
+                    <b-form-input
+                      id="email"
+                      v-model="newTicket.email"
+                      type="email"
+                      required
+                      placeholder="Seu email"
+                    ></b-form-input>
+                  </b-form-group>
+
+                  <!-- Phone -->
+                  <b-form-group
+                    id="phone-label"
+                    label="Telefone celular:"
+                    label-for="phone"
+                    description="Ex.: 21 99876 5432"
+                    required
+                  >
+                    <b-form-input
+                      id="phone"
+                      v-model="newTicket.phone"
+                      type="number"
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      required
+                      placeholder="Seu telefone"
+                      min="11"
+                      max="11"
+                    ></b-form-input>
+                  </b-form-group>
+                </form>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                    @click="hideModal('reservaModal')"
+                  >Cancelar</button>
+
+                  <b-button variant="primary" class="float-right" @click="validarForm">Confirmar</b-button>
+                </div>
+              </b-overlay>
+            </b-modal>
+
+            <!-- Info Pagamento -->
+            <b-modal
+              id="infoModal"
+              :title="'Informação de  Rifa de ' + raffle.name "
+              header-text-variant="dark"
+              body-text-variant="dark"
+              footer-text-variant="dark"
+              hide-footer
+            >
+              <!-- RifaSelected -->
+              <b-form-group id="number-label" label="Número Escolhido:" label-for="numberSelected">
+                <!-- TODO CHANGE NEWTICKET TO SELECTED TICKET -->
+                <b-button id="numberSelected" v-text="newTicket.ticket_number" class="clay"></b-button>
+              </b-form-group>
+
+              <h5>Informações</h5>
+              <p>
+                Envie seu comprovante para o número
+                <a
+                  href="https://wa.me/5521980066366"
+                  style="text-decoration: underline"
+                  target="_blank"
+                >21 98006-6366 via WhatsApp</a> (clique para enviar)
+              </p>
+              <p>Informe seu nome completo (o mesmo usado na forma de pagamento).</p>
+
+              <!-- <h5>Baixe aqui seu certificado de doação</h5>
+              <p>
+                Quando você participa de um sorteio conosco você está fazendo doação
+                <router-link to="parcerias" style="text-decoration: underline">para quem precisa.</router-link>
+              </p>
+              <b-button variant="info">Download</b-button>-->
+
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                  @click="hideModal"
-                >Cancelar</button>
+                <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
+              </div>
+            </b-modal>
 
-                <b-button
-                  variant="primary"
-                  class="float-right federal"
-                  @click="validarForm"
-                >Confirmar</b-button>
+            <!-- Alertas-->
+            <b-modal
+              id="alertModal"
+              title="Atenção"
+              header-text-variant="dark"
+              body-text-variant="dark"
+              footer-text-variant="dark"
+              hide-footer
+            >
+              <h5 v-if="message" v-text="message"></h5>
+              <div class="modal-footer">
+                <b-button variant="primary" @click="hideModal('alertModal')">Ok</b-button>
               </div>
             </b-modal>
           </div>
@@ -168,77 +220,166 @@
 
 <script>
 import SorteioService from "../SorteioService";
+import TicketService from "../TicketService";
+
 export default {
   name: "Sorteio",
   data() {
     return {
       message: "",
-      sorteio: undefined,
+      raffle: undefined,
       selectedNumbers: [],
-      numerosOverlay: false,
+      formOverlay: false,
       newTicket: {
         name: "",
         email: "",
         phone: "",
         ticket_number: "",
-        status: "reserved"
+        raffle: this.$route.params.id
+      },
+      filteredTickets: {
+        avaliable: [],
+        reserved: [],
+        paid: [],
+        mine: [],
+        all: []
       }
     };
   },
 
   methods: {
-    filterSelectedNumbers(ticketStatus = "") {
-      // TODO > Filter avaliable tickets
-      // ! Maximum stack error
-      if (ticketStatus == "avaliable") {
-        alert("nao implementado ainda");
-        // let newTicketArray = [];
-        // const notAvaliableTickets = this.sorteio.tickets.map(t =>
-        //   parseInt(t.ticket_number)
-        // );
-        // // Map a new array excluding the reserved and paid ones
-        // for (let i = 0; i <= this.sorteio.ammount; i++) {
-        //   if (!notAvaliableTickets.includes(i)) newTicketArray.push(i);
-        // }
-        // this.selectedNumbers = newTicketArray;
-      } else if (ticketStatus) {
-        let newarray = this.sorteio.tickets.filter(
-          t => t.status == ticketStatus
-        );
-        this.selectedNumbers = newarray.map(t => t.ticket_number);
-      } else {
-        this.selectedNumbers = this.sorteio.ammount;
-      }
+    formatSorteioDate(dateString) {
+      if (!dateString) return "";
+
+      const monthNames = [
+        "Janeiro",
+        "Fevereiro",
+        "Março",
+        "Abril",
+        "Maio",
+        "Junho",
+        "Julho",
+        "Agosto",
+        "Setembro",
+        "Outubro",
+        "Novembro",
+        "Dezembro"
+      ];
+      const date = dateString.split("-", 3);
+      const year = date[0];
+      const month = parseInt(date[1]);
+      const day = date[2];
+      return ` ${day}  de ${monthNames[month - 1]} de  ${year}`;
     },
-    ticketStatus(ticketNumber) {
-      // Description - Gets ticket reserved or paid if exists and style it with the respective class status
-      const ticket = this.sorteio.tickets.filter(
-        e => e.ticket_number == ticketNumber
-      )[0];
-      if (ticket) return ticket.status;
-      // classreturn
-      return "avaliable";
-    },
+
     tooltipTitle(ticketNumber) {
-      const ticket = this.sorteio.tickets.filter(
-        e => e.ticket_number == ticketNumber
-      )[0];
-      if (ticket) return ticket.name;
-      return "Disponível";
+      if (this.raffle.tickets) {
+        const ticket = this.raffle.tickets.find(
+          e => e.ticket_number == ticketNumber
+        );
+        if (ticket) return ticket.name;
+        return "Disponível";
+      }
+      return "";
     },
     showModal(id) {
       this.newTicket.ticket_number = id;
-      if (
-        document.getElementById("ticket-" + id).classList.contains("avaliable")
-      )
-        this.$bvModal.show("modal-1");
-      else;
-      // this.reserveMessage = 'Este numero já está reservado'
-      // alert("nao é possivel reservar");
+      const span = document.getElementById("ticket-" + id);
+      if (span.classList.contains("AVA")) {
+        this.$bvModal.show("reservaModal");
+      } else if (span.classList.contains("MIN")) {
+        // TODO: FORM DE PAGAMENTO
+        this.$bvModal.show("infoModal");
+      } else;
     },
-    hideModal() {
-      this.$bvModal.hide("modal-1");
+    hideModal(id) {
+      this.$bvModal.hide(id);
     },
+
+    // TICKETS
+    filterSelectedNumbers(status = null) {
+      if (status == "AVA") {
+        if (this.filteredTickets.avaliable.length) {
+          this.selectedNumbers = this.filteredTickets.avaliable;
+        } else {
+          // get not avaliable
+          const not_avaliable = this.raffle.tickets.map(t => t.ticket_number);
+          console.log("not_avaliable", not_avaliable);
+          let avaliable_tickets = [];
+
+          // filter the avaliable ones
+          for (let i = 0; i < this.raffle.ticket_amount; i++) {
+            let ticket_number = ("000" + i).substr(-3);
+            if (i >= 1000) {
+              ticket_number = ("000" + i).substr(-4);
+            }
+            if (!not_avaliable.includes(ticket_number))
+              avaliable_tickets.push(ticket_number);
+          }
+          this.filteredTickets.avaliable = avaliable_tickets;
+          this.selectedNumbers = this.filteredTickets.avaliable;
+        }
+      } else if (status) {
+        const dict = {
+          MIN: "mine",
+          PAI: "paid",
+          RES: "reserved"
+        };
+        const s = dict[status];
+        if (this.filteredTickets[s].length) {
+          this.selectedNumbers = this.filteredTickets[s];
+        } else {
+          let newarray = this.raffle.tickets.filter(t => t.status == status);
+          newarray = newarray.map(t => t.ticket_number);
+          this.filteredTickets[s] = newarray.sort();
+          this.selectedNumbers = this.filteredTickets[s];
+        }
+      } else this.selectedNumbers = this.filteredTickets.all;
+    },
+
+    ticketStatus(ticketNumber) {
+      if (this.raffle.tickets) {
+        const ticket = this.raffle.tickets.find(
+          e => e.ticket_number == ticketNumber
+        );
+        if (
+          ticket &&
+          this.filteredTickets.mine.length &&
+          this.filteredTickets.mine.includes(ticket._id)
+        ) {
+          return "MIN";
+        } else if (ticket) return ticket.status;
+
+        return "AVA";
+      }
+      return "AVA";
+    },
+    updateSpan(ticket_number) {
+      let number = ("000" + ticket_number).substr(-3);
+      if (ticket_number >= 1000) {
+        number = ("000" + ticket_number).substr(-4);
+      }
+      console.log("UPDATING ", "span#ticket-" + number);
+      const span = document.querySelector("span#ticket-" + number);
+      console.log("SPAN", span);
+      if (span) span.classList.replace("AVA", "MIN");
+    },
+    setMyTickets() {
+      const myTicketNumbers = JSON.parse(localStorage.getItem(this.raffle._id));
+      if (myTicketNumbers) {
+        let myTickets = [];
+        this.raffle.tickets.map(t => {
+          if (myTicketNumbers.includes(t._id)) {
+            if (t.status != "PAI") t.status = "MIN";
+            myTickets.push(t.ticket_number);
+            this.updateSpan(t.ticket_number);
+          }
+        });
+        this.filteredTickets.mine = myTickets;
+      }
+    },
+
+    // FORM
     validarForm() {
       const form = document.querySelector("form#novaReserva");
       let formIsValidated = true;
@@ -276,37 +417,58 @@ export default {
         phoneDescription.innerHTML = "Ex.: 21 99876 5432";
       }
       if (formIsValidated) {
+        this.formOverlay = true;
         this.confirmarReserva();
       }
     },
     async confirmarReserva() {
-      const message = await SorteioService.insertTicket(
-        this.newTicket,
-        this.sorteio._id
-      );
-      if (message.status == 201) {
-        // If sucessful, then refresh the collection
-        this.sorteio = await SorteioService.getSorteioById(
-          this.$route.params.id
+      let response = await TicketService.insertTicket(this.newTicket);
+      if (response.msg) {
+        this.message = response.msg;
+        this.$bvModal.show("alertModal");
+      } else {
+        const raffle_id = this.raffle._id;
+        const ticket_id = response._id;
+
+        // set my numbers
+        let my_tickets = JSON.parse(localStorage.getItem(raffle_id));
+        if (my_tickets) my_tickets.push(ticket_id);
+        else my_tickets = [ticket_id];
+        localStorage.setItem(raffle_id, JSON.stringify(my_tickets));
+
+        // update mine and avaliable tickets
+        this.filteredTickets.mine.push(parseInt(this.newTicket.ticket_number));
+        this.updateSpan(parseInt(this.newTicket.ticket_number));
+        this.filteredTickets.avaliable = this.filteredTickets.avaliable.filter(
+          t => t != this.newTicket.ticket_number
         );
-        this.$bvModal.hide("modal-1");
-        // TODO: Send automatic email here
+        this.$bvModal.show("infoModal");
       }
+      this.hideModal("reservaModal");
+      this.formOverlay = false;
+      // TODO: CERTIFICATE
     }
   },
   async created() {
     try {
-      // const sorteios = await SorteioService.getSorteios();
-      // this.sorteio = sorteios.filter(e => e._id == this.$route.params.id)[0];
-      this.sorteio = await SorteioService.getSorteioById(this.$route.params.id);
-    } catch {
-      this.message = "Error";
-    } finally {
-      if (this.sorteio) {
-        for (let i = 0; i <= this.sorteio.ammount; i++) {
-          this.selectedNumbers.push(i);
+      this.raffle = await SorteioService.getSorteioById(this.$route.params.id);
+
+      this.filteredTickets.all = [];
+      for (let i = 0; i < this.raffle.ticket_amount; i++) {
+        let number = ("000" + i).substr(-3);
+        if (i >= 1000) {
+          number = ("000" + i).substr(-4);
         }
+
+        this.filteredTickets.all.push(number);
       }
+      this.filteredTickets.avaliable = [...this.filteredTickets.all];
+
+      this.selectedNumbers = this.filteredTickets.all;
+
+      this.setMyTickets();
+    } catch (e) {
+      this.message = e.msg;
     }
   }
 };
@@ -319,33 +481,26 @@ $side-padding: 30px;
 $warning: #ffb200;
 $danger: #b91e1e;
 $federal: #ff7b00;
+$clay: #ff914d;
 $black: #000;
 $gray: #545b62;
+$info: #138496;
 
-.tooltip {
-  .tooltip-inner {
-    background-color: #fff !important;
-    color: #000 !important;
-  }
+.full-height {
+  min-height: 75vh;
 }
-.b-overlay-wrap {
-  min-height: 85vh;
-}
-
 .section {
   text-align: center;
-  padding: $section-padding $side-padding;
+  margin: $section-padding $side-padding;
 }
 .info {
-  min-height: 85vh;
+  min-height: 75vh;
   position: relative;
+
   .flex {
     display: flex;
-    flex-direction: row;
     .column {
       flex: 1;
-      padding: 20px;
-
       &.details {
         margin: auto 0;
         text-align: start;
@@ -358,35 +513,6 @@ $gray: #545b62;
           object-fit: fill;
         }
       }
-    }
-  }
-  .scroll-down {
-    position: absolute;
-    left: 50%;
-    bottom: 50px;
-    height: 50px;
-    width: 50px;
-    transform: translateX(-50%) rotateZ(45deg);
-    border-right: 1px solid white;
-    border-bottom: 1px solid white;
-    opacity: 0;
-    animation: animate 2s alternate infinite;
-  }
-  @keyframes animate {
-    0% {
-      opacity: 0;
-    }
-    25% {
-      opacity: 25;
-    }
-    50% {
-      opacity: 50;
-    }
-    75% {
-      opacity: 75;
-    }
-    100% {
-      opacity: 100;
     }
   }
 }
@@ -421,32 +547,71 @@ $gray: #545b62;
       }
     }
   }
-  .reserved {
-    background-color: $warning;
-    border: none;
-  }
-  .paid {
-    // background-color: #218838;
-    background-color: $danger;
-    border: none;
-  }
-  .avaliable {
-    background-color: $federal;
-    border: none;
+  .AVA {
     background-color: $black;
     border: 1px solid $gray;
   }
+  .RES {
+    background-color: $warning;
+    border: none;
+  }
+  .PAI {
+    background-color: $danger;
+    border: none;
+  }
+  .MIN {
+    background-color: $info;
+    border: none;
+  }
+}
+.clay {
+  background-color: $clay !important;
+  cursor: context-menu !important;
+  border: none;
 }
 
-// Remove input arrows
+// Remove number input arrows
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+@media screen and (max-width: 768px) {
+  .info {
+    .flex {
+      flex-direction: column;
+      .column {
+        padding: 0;
+        margin: 30px 0;
+      }
+    }
+  }
+  .rifas {
+    .legenda {
+      display: flex;
+      // flex-direction: column;
+      flex-wrap: wrap;
+      padding-bottom: 30px;
+      .btn {
+        max-width: 200px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .info {
+    .flex {
+      flex-direction: row;
+      .column {
+        margin: 40px;
+      }
+    }
+  }
 }
 </style>

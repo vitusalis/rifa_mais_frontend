@@ -1,31 +1,40 @@
 <template>
   <div class="sorteios">
-    <h1>Próximos Sorteios</h1>
-    <p v-text="this.message"></p>
-    <!-- <form id="newsorteio" @submit="createSorteio">
-      <label for="name">Nome</label>
-      <br />
-      {{!!newSorteio.name.trim()}}
-      <input type="text" v-model="newSorteio.name" required />
-      <b-button type="submit">Enviar</b-button>
-    </form>-->
-    <b-overlay :show="!sorteios.length" rounded="sm" :opacity="0">
-      <div class="section" v-if="sorteios">
-        <b-card
-          v-for="(sorteio, index) of sorteios"
-          :id="sorteio['_id']"
-          :key="index"
-          :title="sorteio.name + ' - ' + sorteio.info.ano"
-          :sub-title="`A partir de R$`+sorteio.ticket_price"
-          :img-src="sorteio.photos[0]"
-        >
-          <!-- TODO: Button based on sorteio.avaliabletickets -->
-          <router-link :to="{name: 'Sorteio', params:{ id: sorteio._id}}" tag="span">
-            <b-button pill>Comprar</b-button>
-          </router-link>
-        </b-card>
+    <h1 v-if="message" v-text="message"></h1>
+
+    <div v-else>
+      <div v-if="sorteios">
+        <h1>Próximos Sorteios</h1>
+        <h5 class="text-secondary">Participe e concorra</h5>
       </div>
-    </b-overlay>
+      <b-overlay :show="!sorteios.length" rounded="sm" :opacity="0">
+        <div class="section" v-if="sorteios">
+          <b-card
+            v-for="(sorteio, index) of sorteios"
+            :id="sorteio['id']"
+            :key="index"
+            :title="sorteio.name"
+            :sub-title="`A partir de R$`+sorteio.ticket_price"
+            :img-src="sorteio.cover ? sorteio.cover: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
+          >
+            <!--  sortings to be have no id therefore no link-->
+            <b-button
+              pill
+              variant="secondary"
+              v-if="sorteio.status=='SOO'"
+              :class="sorteio.status"
+            >{{status_dictionary[sorteio.status]}}</b-button>
+
+            <b-button
+              pill
+              v-else
+              :class="sorteio.status"
+              :to="{name: 'Sorteio', params:{ id: sorteio.id}}"
+            >{{status_dictionary[sorteio.status]}}</b-button>
+          </b-card>
+        </div>
+      </b-overlay>
+    </div>
   </div>
 </template>
 
@@ -46,27 +55,19 @@ export default {
         buyers: []
       },
       sorteios: [],
+      status_dictionary: {
+        ACT: "COMPRAR",
+        INA: "ESGOTADO",
+        SOO: "EM BREVE"
+      },
       message: ""
     };
   },
-  methods: {
-    // async createSorteio() {
-    //   // At least a name
-    //   if (this.newSorteio.name.trim()) {
-    //     await SorteioService.insertSorteio({ ...this.newSorteio });
-    //     this.sorteios = await SorteioService.getSorteios();
-    //     this.newSorteio = this.model;
-    //   }
-    // },
-    // async deleteSorteio(id) {
-    //   console.log(`Sorteio ${id} excluido`);
-    //   await SorteioService.deleteSorteio(id);
-    //   this.sorteios = this.sorteios.filter(r => r._id != id);
-    // }
-  },
   async created() {
     try {
-      this.sorteios = await SorteioService.getSorteios();
+      const response = await SorteioService.getSorteios();
+      if (response.msg) this.message = response.msg;
+      else this.sorteios = response;
     } catch (error) {
       this.message = error.message;
     }
@@ -75,34 +76,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$section-padding: 50px;
-$side-padding: 30px;
+$clay: #ff914d;
+$section-margin: 70px;
+$side-margin: 30px;
 
 .sorteios {
   text-align: center;
-  padding: $section-padding $side-padding;
+  margin: $section-margin $side-margin;
+  min-height: 75vh;
   .section {
-    padding: $section-padding $side-padding;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
     .card {
-      margin: 30px;
+      position: relative;
       max-width: 300px;
       background-color: rgba($color: #000000, $alpha: 0);
       .btn {
-        background-color: #ff7b00;
         border: none;
         text-transform: uppercase;
         width: 100%;
+        &.ACT {
+          background-color: $clay;
+        }
       }
       .card-img {
-        width: 300px;
-        height: 225px;
         object-fit: cover;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sorteios {
+    .section {
+      margin: $section-margin 0;
+    }
+  }
+  .card {
+    margin: 0;
+    max-width: 80vw;
+  }
+}
+@media screen and (min-width: 769px) {
+  .sorteios {
+    .section {
+      margin: $section-margin $side-margin;
+    }
+  }
+  .card {
+    margin: 30px;
   }
 }
 </style>
