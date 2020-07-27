@@ -26,7 +26,7 @@
     <div class="navigation">
       <div class="logo">
         <router-link to="/" tag="a">
-          <img class="logo-img" src="../assets/logo.png" alt="logo" />
+          <img class="logo-img" src="../assets/Original on Transparent.png" alt="logo" />
         </router-link>
 
         <b-button variant="outline-light" class="toggle" @click="toggle('div#menu')">
@@ -83,7 +83,7 @@ ul {
   padding: 0;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
   nav {
     min-height: 15vh;
     position: relative;
@@ -167,17 +167,17 @@ ul {
     }
   }
 }
-@media screen and (min-width: 1001px) {
+@media screen and (min-width: 769px) {
   nav {
+    min-height: 20vh;
     .toggle,
     .menu-contact {
       display: none;
     }
-    min-height: 15vh;
     .navigation {
       position: relative;
       flex-direction: row;
-      padding: 40px $side-padding;
+      padding: 50px $side-padding;
       .logo-img {
         position: absolute;
         top: 0px;
@@ -201,20 +201,16 @@ ul {
 }
 
 nav {
-  display: flex;
-  flex-direction: column;
   .navigation {
     .logo-img {
-      max-height: 100px;
+      max-height: 120px;
     }
   }
-
   .links {
     text-align: right;
-    width: 100%;
     padding: 5px $side-padding;
     border-bottom: 1px solid #1b1b1b;
-    color: white;
+    color: #fff;
     ul {
       li {
         display: inline;
@@ -234,9 +230,6 @@ nav {
     }
   }
   .navigation {
-    display: flex;
-    align-items: center;
-    // border-bottom: 1px solid #1b1b1b;
     .link {
       color: inherit;
       transition: transform 0.2s ease;

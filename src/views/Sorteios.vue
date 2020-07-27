@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$clay: #ff914d;
+$orange: #f57502;
 $section-margin: 70px;
 $side-margin: 30px;
 
@@ -98,7 +98,7 @@ $side-margin: 30px;
         text-transform: uppercase;
         width: 100%;
         &.ACT {
-          background-color: $clay;
+          background-color: $orange;
         }
       }
       .card-img {

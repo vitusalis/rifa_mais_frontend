@@ -141,7 +141,7 @@ $side-padding: 30px;
 
 $warning: #ffb200;
 $danger: #b91e1e;
-$clay: #ff914d;
+$orange: #f57502;
 $black: #000;
 $gray: #545b62;
 
@@ -225,7 +225,7 @@ $gray: #545b62;
         color: #fff;
         border: none;
 
-        background-color: $clay;
+        background-color: $orange;
         -webkit-box-shadow: 10px 10px 28px 0px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: 10px 10px 28px 0px rgba(0, 0, 0, 0.75);
         box-shadow: 10px 10px 28px 0px rgba(0, 0, 0, 0.75);

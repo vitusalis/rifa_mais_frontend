@@ -43,11 +43,31 @@
         </div>
         <div class="section rifas">
           <div class="legenda">
-            <b-button pill variant="light" @click="filterSelectedNumbers()">Todos</b-button>
-            <b-button pill class="AVA" @click="filterSelectedNumbers('AVA')">Disponíveis</b-button>
-            <b-button pill class="RES" @click="filterSelectedNumbers('RES')">Reservados</b-button>
-            <b-button pill class="PAI" @click="filterSelectedNumbers('PAI')">Pagos</b-button>
-            <b-button pill class="MIN" @click="filterSelectedNumbers('MIN')">Meus Números</b-button>
+            <b-button
+              pill
+              variant="light"
+              @click="filterSelectedNumbers()"
+            >Todos ({{filteredTickets.all.length}})</b-button>
+            <b-button
+              pill
+              class="AVA"
+              @click="filterSelectedNumbers('AVA')"
+            >Disponíveis ({{filteredTickets.avaliable.length}})</b-button>
+            <b-button
+              pill
+              class="RES"
+              @click="filterSelectedNumbers('RES')"
+            >Reservados ({{filteredTickets.reserved.length}})</b-button>
+            <b-button
+              pill
+              class="PAI"
+              @click="filterSelectedNumbers('PAI')"
+            >Pagos ({{filteredTickets.paid.length}})</b-button>
+            <b-button
+              pill
+              class="MIN"
+              @click="filterSelectedNumbers('MIN')"
+            >Meus Números ({{filteredTickets.mine.length}})</b-button>
           </div>
 
           <div class="numeros" id="numeroSorteio">
@@ -82,15 +102,13 @@
             >
               <b-overlay :show="formOverlay" rounded="sm" :opacity="0">
                 <form id="novaReserva">
-                  <!-- TODO: IMPLEMENT CAPTCHA -->
-
                   <!-- RifaSelected -->
                   <b-form-group
                     id="number-label"
                     label="Número Escolhido:"
                     label-for="numberSelected"
                   >
-                    <b-button class="clay" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
+                    <b-button class="orange" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
                   </b-form-group>
 
                   <b-form-group
@@ -170,27 +188,29 @@
             >
               <!-- RifaSelected -->
               <b-form-group id="number-label" label="Número Escolhido:" label-for="numberSelected">
-                <!-- TODO CHANGE NEWTICKET TO SELECTED TICKET -->
-                <b-button id="numberSelected" v-text="newTicket.ticket_number" class="clay"></b-button>
+                <b-button id="numberSelected" v-text="newTicket.ticket_number" class="orange"></b-button>
               </b-form-group>
 
-              <h5>Informações</h5>
-              <p>
-                Envie seu comprovante para o número
-                <a
-                  href="https://wa.me/5521980066366"
-                  style="text-decoration: underline"
-                  target="_blank"
-                >21 98006-6366 via WhatsApp</a> (clique para enviar)
-              </p>
-              <p>Informe seu nome completo (o mesmo usado na forma de pagamento).</p>
+              <h3>Informações Importantes</h3>
+              <span class="text-danger" style="font-weight:bold">
+                <p>
+                  Envie seu comprovante para o número
+                  <a
+                    href="https://wa.me/5521980066366"
+                    style="text-decoration: underline color:inherit"
+                    target="_blank"
+                  >21 98006-6366 via WhatsApp</a> (clique para enviar)
+                </p>
 
-              <!-- <h5>Baixe aqui seu certificado de doação</h5>
-              <p>
-                Quando você participa de um sorteio conosco você está fazendo doação
-                <router-link to="parcerias" style="text-decoration: underline">para quem precisa.</router-link>
-              </p>
-              <b-button variant="info">Download</b-button>-->
+                <ul>
+                  <li>Informando:</li>
+                  <li>1. O sorteio e o(s) número(s) reservado(s)</li>
+                  <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
+                  <li>3. E seu estado</li>
+                </ul>
+              </span>
+              <br />
+              <p>Após 3 dias sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
 
               <div class="modal-footer">
                 <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
@@ -288,7 +308,6 @@ export default {
       if (span.classList.contains("AVA")) {
         this.$bvModal.show("reservaModal");
       } else if (span.classList.contains("MIN")) {
-        // TODO: FORM DE PAGAMENTO
         this.$bvModal.show("infoModal");
       } else;
     },
@@ -299,26 +318,19 @@ export default {
     // TICKETS
     filterSelectedNumbers(status = null) {
       if (status == "AVA") {
-        if (this.filteredTickets.avaliable.length) {
-          this.selectedNumbers = this.filteredTickets.avaliable;
-        } else {
-          // get not avaliable
-          const not_avaliable = this.raffle.tickets.map(t => t.ticket_number);
-          console.log("not_avaliable", not_avaliable);
-          let avaliable_tickets = [];
+        // get not avaliable
+        const not_avaliable = this.raffle.tickets.map(t => t.ticket_number);
 
-          // filter the avaliable ones
-          for (let i = 0; i < this.raffle.ticket_amount; i++) {
-            let ticket_number = ("000" + i).substr(-3);
-            if (i >= 1000) {
-              ticket_number = ("000" + i).substr(-4);
-            }
-            if (!not_avaliable.includes(ticket_number))
-              avaliable_tickets.push(ticket_number);
-          }
-          this.filteredTickets.avaliable = avaliable_tickets;
-          this.selectedNumbers = this.filteredTickets.avaliable;
+        // filter the avaliable ones
+        let avaliable_tickets = [];
+        for (let i = 0; i < this.raffle.ticket_amount; i++) {
+          let ticket_number = ("000" + i).substr(-3);
+          if (i >= 1000) ticket_number = ("000" + i).substr(-4);
+
+          if (!not_avaliable.includes(i)) avaliable_tickets.push(ticket_number);
         }
+        this.filteredTickets.avaliable = avaliable_tickets;
+        this.selectedNumbers = this.filteredTickets.avaliable;
       } else if (status) {
         const dict = {
           MIN: "mine",
@@ -359,9 +371,7 @@ export default {
       if (ticket_number >= 1000) {
         number = ("000" + ticket_number).substr(-4);
       }
-      console.log("UPDATING ", "span#ticket-" + number);
       const span = document.querySelector("span#ticket-" + number);
-      console.log("SPAN", span);
       if (span) span.classList.replace("AVA", "MIN");
     },
     setMyTickets() {
@@ -446,7 +456,6 @@ export default {
       }
       this.hideModal("reservaModal");
       this.formOverlay = false;
-      // TODO: CERTIFICATE
     }
   },
   async created() {
@@ -467,6 +476,10 @@ export default {
       this.selectedNumbers = this.filteredTickets.all;
 
       this.setMyTickets();
+      this.filterSelectedNumbers("AVA");
+      this.filterSelectedNumbers("RES");
+      this.filterSelectedNumbers("PAI");
+      this.filterSelectedNumbers();
     } catch (e) {
       this.message = e.msg;
     }
@@ -481,7 +494,7 @@ $side-padding: 30px;
 $warning: #ffb200;
 $danger: #b91e1e;
 $federal: #ff7b00;
-$clay: #ff914d;
+$orange: #f57502;
 $black: #000;
 $gray: #545b62;
 $info: #138496;
@@ -564,8 +577,9 @@ $info: #138496;
     border: none;
   }
 }
-.clay {
-  background-color: $clay !important;
+
+.orange {
+  background-color: $orange !important;
   cursor: context-menu !important;
   border: none;
 }

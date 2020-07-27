@@ -95,10 +95,10 @@ export default {
 <style lang="scss" scoped>
 $section-margin: 70px;
 $side-margin: 30px;
-
 $warning: #ffb200;
 $danger: #b91e1e;
-$clay: #ff914d;
+$orange: #f57502;
+$orange: #f57502;
 $black: #000;
 $gray: #545b62;
 
@@ -157,7 +157,7 @@ $gray: #545b62;
         z-index: 0;
         width: 200px;
         min-height: 200px;
-        background-color: $clay;
+        background-color: $orange;
         color: #fff;
 
         padding: 10px;

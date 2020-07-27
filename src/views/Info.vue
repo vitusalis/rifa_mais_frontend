@@ -93,7 +93,7 @@ $side-margin: 30px;
 $warning: #ffb200;
 $danger: #b91e1e;
 $federal: #ff7b00;
-$clay: #ff914d;
+$orange: #f57502;
 $black: #000;
 $gray: #545b62;
 
@@ -143,7 +143,7 @@ $gray: #545b62;
 }
 .link {
   text-decoration: underline;
-  text-decoration-color: $clay;
+  text-decoration-color: $orange;
   color: inherit;
 }
 .info {
@@ -155,7 +155,7 @@ $gray: #545b62;
     display: flex;
     margin: 0 auto;
     .step {
-      background-color: $clay;
+      background-color: $orange;
       .image {
         // .step-width - icon(i) width / 2
         padding: 35px;
@@ -176,7 +176,7 @@ $gray: #545b62;
 
     .contact {
       display: inline-block;
-      background-color: $clay;
+      background-color: $orange;
       color: #fff;
       width: 200px;
       height: 100px;

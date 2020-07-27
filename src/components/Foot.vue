@@ -52,7 +52,7 @@
     </div>
 
     <div class="md-col-12 lg-col-4 item center">
-      <img src="../assets/logo.png" class="image" alt="footer-logo" />
+      <img class="image" src="../assets/Original on Transparent.png" alt="footer-logo" />
     </div>
   </footer>
 </template>

@@ -9,8 +9,8 @@ module.exports = {
 
     proxy: {
       '/api': {
-        // target: "http://localhost:8000",
-        target: "https://rifa-que-soma-api.herokuapp.com",
+        
+        target: "https://api-rifa-que-soma.herokuapp.com",
         ws: true,
         changeOrigin: true
       }
