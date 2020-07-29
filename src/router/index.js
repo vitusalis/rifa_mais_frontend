@@ -5,7 +5,6 @@ import Sorteios from '../views/Sorteios.vue';
 import Sorteio from '../views/Sorteio.vue';
 import Iniciativas from '../views/Iniciativas.vue';
 import Info from '../views/Info.vue';
-import UserService from '../UserService'
 
 Vue.use(VueRouter);
 
@@ -45,14 +44,6 @@ const routes = [
 
 ];
 
-function loginIsValid() {
-  const user = JSON.parse(sessionStorage.getItem("user"));
-  if (user) {
-    return UserService.validateUser(user)
-  }
-  return false;
-}
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -61,14 +52,5 @@ const router = new VueRouter({
     document.getElementById('app').scrollIntoView();
   }
 });
-
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuthentication && !loginIsValid()) {
-    next({ name: "Login" });
-  }
-  else
-    next();
-
-})
 
 export default router;

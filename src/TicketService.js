@@ -1,7 +1,8 @@
 import axios from "axios";
 require('dotenv').config()
 
-const url = '/api/tickets/'
+const API_PATH = process.env.API_PATH
+const url = `${API_PATH}/api/tickets/`
 
 class TicketService {
 

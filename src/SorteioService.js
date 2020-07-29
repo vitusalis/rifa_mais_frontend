@@ -2,8 +2,9 @@ import axios from "axios";
 import TicketService from "./TicketService";
 require('dotenv').config()
 
-
-const url = '/api/raffles/'
+const API_PATH = process.env.API_PATH
+const url = `${API_PATH}/api/raffles/`
+console.log("url: ", url)
 class SorteioService {
 
     static getSorteios() {
