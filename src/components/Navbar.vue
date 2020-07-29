@@ -39,7 +39,7 @@
           <router-link class="link" to="/sorteios">Nossas Rifas</router-link>
         </div>
         <div class="right">
-          <router-link class="link" to="/parcerias">Parcerias</router-link>
+          <router-link class="link" to="/iniciativas">Iniciativas</router-link>
           <router-link class="link" to="/info">Informações</router-link>
         </div>
         <div class="menu-contact">

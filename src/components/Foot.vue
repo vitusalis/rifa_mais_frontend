@@ -43,7 +43,7 @@
         </li>
 
         <li>
-          <router-link class="link" to="/parcerias">Parcerias</router-link>
+          <router-link class="link" to="/iniciativas">iniciativas</router-link>
         </li>
         <li>
           <router-link class="link" to="/info">Informações</router-link>

@@ -38,7 +38,7 @@
             <p>
               Concorra ao prêmio e ainda
               <router-link
-                to="/parcerias"
+                to="/iniciativas"
                 class="link"
                 title="Saiba como contribuir"
               >contribua para uma boa causa.</router-link>

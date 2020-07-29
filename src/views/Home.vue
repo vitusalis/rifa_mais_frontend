@@ -42,11 +42,13 @@
 </template>
 
 <script>
+import companies from "../assets/donations";
 import SorteioService from "../SorteioService";
 import PaymentMethods from "../components/PaymentMethods";
 
 export default {
   name: "Home",
+  components: { "payment-methods": PaymentMethods },
   data() {
     return {
       message: "",
@@ -78,7 +80,7 @@ export default {
             }
           }
         }
-      }, 6000);
+      }, 8000);
     },
     getDescription(date) {
       if (date) {
@@ -90,29 +92,29 @@ export default {
       return "";
     }
   },
-  components: { "payment-methods": PaymentMethods },
   async created() {
     try {
       let response = await SorteioService.getSorteios();
-      if (response.msg) {
-        this.message = response.msg;
-      } else {
-        const sorteio = response[0];
+      if (response.msg) this.message = response.msg;
+      else {
+        const raffles = response;
+        let sorteio = response.filter(r => r.status == "ACT")[0];
+        if (!sorteio) sorteio = raffles[0];
         this.bannerSlide.push({
           title: `CONCORRA A UM ${sorteio.name.toUpperCase()}`,
-          subTitle: `Apenas R$ ${sorteio.ticket_price},00`,
+          subTitle: `Apenas R$ ${sorteio.ticket_price}`,
           description: this.getDescription(sorteio.date),
           image: sorteio.cover
             ? sorteio.cover
             : "https://i.postimg.cc/CKspSPzh/not-found.png",
           linkId: sorteio.id
         });
-        // TODO UPDATE THIS
+        const organs = companies.companies;
+        const organ = organs[0];
         this.bannerSlide.push({
-          title: "UNICEF",
-          subTitle:
-            "A cada sorteio realizado uma parte dos lucros é destinada a uma boa causa como a UNICEF",
-          link: "/parcerias",
+          title: organ.name,
+          subTitle: `A cada sorteio realizado uma parte dos lucros é destinada a uma boa causa como a ${organ.name}`,
+          link: "/iniciativas",
           image: "https://i.postimg.cc/j5W1wfFT/child-1864718-1920.jpg"
         });
       }
@@ -122,13 +124,17 @@ export default {
     this.slideshow();
   },
   mounted() {
-    const slideshow = document.querySelector("div#slideshow");
-    slideshow.addEventListener("mouseover", () => {
-      this.slideshow_on = false;
-    });
-    slideshow.addEventListener("mouseout", () => {
-      this.slideshow_on = true;
-    });
+    // const slideshow = document.querySelector("div#slideshow");
+    // slideshow.addEventListener("mouseover", () => {
+    //   this.slideshow_on = false;
+    //   console.log(this.slideshow_on);
+    // });
+    // slideshow.addEventListener("mouseout", () => {
+    //   setTimeout(() => {
+    //     if (!this.slideshow_on) this.slideshow_on = true;
+    //   }, 2000);
+    //   console.log(this.slideshow_on);
+    // });
   }
 };
 </script>

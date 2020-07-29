@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Sorteios from '../views/Sorteios.vue';
 import Sorteio from '../views/Sorteio.vue';
-import Parcerias from '../views/Parcerias.vue';
+import Iniciativas from '../views/Iniciativas.vue';
 import Info from '../views/Info.vue';
 import UserService from '../UserService'
 
@@ -14,11 +14,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
     path: '/sorteios',
@@ -33,9 +28,9 @@ const routes = [
 
   },
   {
-    path: '/parcerias',
-    name: 'Parcerias',
-    component: Parcerias,
+    path: '/iniciativas',
+    name: 'Iniciativas',
+    component: Iniciativas,
   },
 
   {

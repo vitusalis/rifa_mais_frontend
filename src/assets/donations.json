@@ -1,0 +1,24 @@
+{
+  "companies": [
+    {
+      "name": "OMS",
+      "image": "https://canaldafelicidade.com.br/wp-content/uploads/2020/03/organizacao-mundial-da-sa%C3%BAde-logo.jpg",
+      "url": "https://www.who.int/"
+    },
+    {
+      "name": "INCA",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e9/INCA_Logo.jpg",
+      "url": "https://www.inca.gov.br/"
+    },
+    {
+      "name": "UNICEF",
+      "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.KU7Oy3vfJZDnAzPZQEh9KAHaFj%26pid%3DApi&f=1",
+      "url": "https://www.unicef.org/"
+    },
+    {
+      "name": "AACD",
+      "image": "https://aacd.org.br/wp-content/uploads/2019/05/logo-aacd-baixa.png",
+      "url": "https://aacd.org.br/"
+    }
+  ]
+}
