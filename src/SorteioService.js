@@ -1,10 +1,7 @@
 import axios from "axios";
 import TicketService from "./TicketService";
-require('dotenv').config()
 
-const API_PATH = process.env.API_PATH
-const url = `${API_PATH}/api/raffles/`
-console.log("url: ", url)
+const url = "https://api-rifa-que-soma.herokuapp.com/api/raffles/"
 class SorteioService {
 
     static getSorteios() {

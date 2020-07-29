@@ -1,8 +1,6 @@
 import axios from "axios";
-require('dotenv').config()
 
-const API_PATH = process.env.API_PATH
-const url = `${API_PATH}/api/tickets/`
+const url = "https://api-rifa-que-soma.herokuapp.com/api/tickets/"
 
 class TicketService {
 
