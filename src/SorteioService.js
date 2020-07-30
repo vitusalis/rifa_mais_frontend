@@ -1,7 +1,8 @@
 import axios from "axios";
 import TicketService from "./TicketService";
 
-const url = "https://api-rifa-que-soma.herokuapp.com/api/raffles/"
+const api_path = process.env.VUE_APP_API_PATH;
+const url = api_path + "/api/raffles/"
 class SorteioService {
 
     static getSorteios() {

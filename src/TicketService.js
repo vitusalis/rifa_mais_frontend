@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = "https://api-rifa-que-soma.herokuapp.com/api/tickets/"
+const api_path = process.env.VUE_APP_API_PATH;
+const url = api_path + "/api/tickets/"
 
 class TicketService {
 
