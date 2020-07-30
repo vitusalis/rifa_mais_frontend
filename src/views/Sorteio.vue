@@ -206,11 +206,11 @@
                   <li>Informando:</li>
                   <li>1. O sorteio e o(s) número(s) reservado(s)</li>
                   <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
-                  <li>3. E seu estado</li>
+                  <li>3. E seu estado (ex: RJ, SP).</li>
                 </ul>
               </span>
               <br />
-              <p>Após 3 dias sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
+              <p>Após 2 dias sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
 
               <div class="modal-footer">
                 <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
