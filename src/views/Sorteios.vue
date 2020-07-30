@@ -67,7 +67,13 @@ export default {
     try {
       const response = await SorteioService.getSorteios();
       if (response.msg) this.message = response.msg;
-      else this.sorteios = response;
+      else {
+        this.sorteios = response.sort((a, b) => {
+          if (a.status == "ACT" && b.status != "ACT") return -1;
+          else if (a.status == "INA" && b.status == "ACT") return 1;
+          else if (a.status == "SOO" && b.status != "SOO") return 1;
+        });
+      }
     } catch (error) {
       this.message = error.message;
     }

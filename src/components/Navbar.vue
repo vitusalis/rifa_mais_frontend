@@ -40,7 +40,7 @@
         </div>
         <div class="right">
           <router-link class="link" to="/iniciativas">Iniciativas</router-link>
-          <router-link class="link" to="/info">Informações</router-link>
+          <router-link class="link" to="/info">Como funciona?</router-link>
         </div>
         <div class="menu-contact">
           <div class="icons">
@@ -232,13 +232,15 @@ nav {
   .navigation {
     .link {
       color: inherit;
-      transition: transform 0.2s ease;
       &:hover {
         text-decoration: none;
       }
     }
     .menu {
       display: flex;
+      .link {
+        font-size: 1.3em;
+      }
     }
   }
 }

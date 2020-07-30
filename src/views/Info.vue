@@ -6,6 +6,27 @@
     >Aqui você encontra como participar, nossas formas de pagamento e nossas formas de contato</h5>
 
     <div class="section instructions">
+      <h2>Como Funciona</h2>
+      <div class="how-it-works">
+        <p>Nossos sorteios são feitos através da loteria federal</p>
+        <p>
+          A data do sorteio será sempre divulgada em nosso
+          <a
+            href="https://www.instagram.com/rifaquesoma/"
+            target="_blank"
+            title="Instagram Rifaquesoma"
+            style="color:#fff; text-decoration:underline"
+          >Instagram</a>
+        </p>
+        <p>Você reserva um número equivalente aos últimos 3 dígitos do número sorteado na loteria federal</p>
+        <p>
+          Ex.: Se você reservou os números 142, 509 e 030,
+          <br />e o número sorteado na loteria federal for 021509,
+          <br />você é o ganhador do soteio Rifa que Soma!
+        </p>
+      </div>
+    </div>
+    <div class="section instructions">
       <h2>Como participar</h2>
       <div class="steps">
         <div class="step odd">
@@ -87,7 +108,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$section-margin: 35px;
+$section-margin: 45px;
 $side-margin: 30px;
 
 $warning: #ffb200;
@@ -148,25 +169,32 @@ $gray: #545b62;
 }
 .info {
   text-align: center;
-
   min-height: 75vh;
 
-  .steps {
-    display: flex;
-    margin: 0 auto;
-    .step {
-      background-color: $orange;
-      .image {
-        // .step-width - icon(i) width / 2
-        padding: 35px;
+  .section {
+    .how-it-works {
+      p {
+        font-size: 1.3em;
+        margin: 0;
       }
-      .content {
-        background-color: rgba($color: #fff, $alpha: 1);
-        height: 150px;
-        padding: 20px;
-        color: #000;
-        display: flex;
-        align-items: center;
+    }
+    .steps {
+      display: flex;
+      margin: 0 auto;
+      .step {
+        background-color: $orange;
+        .image {
+          // .step-width - icon(i) width / 2
+          padding: 35px;
+        }
+        .content {
+          background-color: rgba($color: #fff, $alpha: 1);
+          height: 150px;
+          padding: 20px;
+          color: #000;
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }

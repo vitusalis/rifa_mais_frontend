@@ -107,6 +107,7 @@
                     id="number-label"
                     label="Número Escolhido:"
                     label-for="numberSelected"
+                    description="Quanto mais números você reservar, mais suas chances de ganhar!"
                   >
                     <b-button class="orange" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
                   </b-form-group>
@@ -210,7 +211,7 @@
                 </ul>
               </span>
               <br />
-              <p>Após 2 dias sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
+              <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
 
               <div class="modal-footer">
                 <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
