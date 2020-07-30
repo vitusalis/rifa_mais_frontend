@@ -35,12 +35,12 @@
       </div>
       <div class="menu hidden" id="menu">
         <div class="left">
-          <router-link class="link" to="/">Início</router-link>
-          <router-link class="link" to="/sorteios">Nossas Rifas</router-link>
+          <router-link class="link menu-action" to="/">Início</router-link>
+          <router-link class="link menu-action" to="/sorteios">Nossas Rifas</router-link>
         </div>
         <div class="right">
-          <router-link class="link" to="/iniciativas">Iniciativas</router-link>
-          <router-link class="link" to="/info">Como funciona?</router-link>
+          <router-link class="link menu-action" to="/iniciativas">Iniciativas</router-link>
+          <router-link class="link menu-action" to="/info">Como funciona?</router-link>
         </div>
         <div class="menu-contact">
           <div class="icons">
@@ -72,6 +72,15 @@ export default {
         el.classList.replace("hidden", "visible");
       else el.classList.replace("visible", "hidden");
     }
+  },
+  mounted() {
+    const menuItems = document.querySelectorAll("a.menu-action");
+    menuItems.forEach(link => {
+      link.addEventListener("click", () => {
+        console.log("click");
+        this.toggle("div#menu");
+      });
+    });
   }
 };
 </script>
@@ -135,6 +144,9 @@ ul {
           // if this setting is active whenever there is an overflow when the menu is collapsed
           .menu-contact {
             transform: translateX(-50%);
+            a {
+              color: #fff;
+            }
           }
         }
         .menu-contact {
@@ -149,6 +161,7 @@ ul {
             a {
               margin: 10px;
               padding: 0;
+              color: inherit;
             }
           }
         }
