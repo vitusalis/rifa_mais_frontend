@@ -17,7 +17,7 @@
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/rifasquesomam/" target="_blank" title="Instagram">
+          <a href="https://www.instagram.com/rifaquesoma/" target="_blank" title="Instagram">
             <i class="fab fa-instagram fa-md link"></i>
           </a>
         </li>
@@ -52,7 +52,7 @@
               <i class="fab fa-whatsapp fa-md link"></i>
             </a>
 
-            <a href="https://www.instagram.com/rifasquesomam/" target="_blank" title="Instagram">
+            <a href="https://www.instagram.com/rifaquesoma/" target="_blank" title="Instagram">
               <i class="fab fa-instagram fa-md link"></i>
             </a>
           </div>
