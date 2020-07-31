@@ -77,7 +77,6 @@ export default {
     const menuItems = document.querySelectorAll("a.menu-action");
     menuItems.forEach(link => {
       link.addEventListener("click", () => {
-        console.log("click");
         this.toggle("div#menu");
       });
     });

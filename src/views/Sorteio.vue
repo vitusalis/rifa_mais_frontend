@@ -494,6 +494,7 @@ $side-padding: 30px;
 
 $warning: #ffb200;
 $danger: #b91e1e;
+$success: #28a745;
 $federal: #ff7b00;
 $orange: #f57502;
 $black: #000;
@@ -561,20 +562,26 @@ $info: #138496;
       }
     }
   }
+  //por as cores: disponíveis( vermelho ),Reservados (azul), pagos (verde), meus números (amarelo).
   .AVA {
-    background-color: $black;
-    border: 1px solid $gray;
+    // background-color: $black;
+    background-color: $danger;
+    // border: 1px solid $gray;
+    border: none;
   }
   .RES {
-    background-color: $warning;
+    // background-color: $warning;
+    background-color: $info;
     border: none;
   }
   .PAI {
-    background-color: $danger;
+    // background-color: $danger;
+    background-color: $success;
     border: none;
   }
   .MIN {
-    background-color: $info;
+    // background-color: $info;
+    background-color: $warning;
     border: none;
   }
 }
