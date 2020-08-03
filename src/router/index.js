@@ -5,6 +5,7 @@ import Sorteios from '../views/Sorteios.vue';
 import Sorteio from '../views/Sorteio.vue';
 import Iniciativas from '../views/Iniciativas.vue';
 import Info from '../views/Info.vue';
+import Sobre from '../views/Sobre.vue';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/info',
     name: 'Info',
     component: Info,
+  },
+  {
+    path: '/about',
+    name: 'Sobre',
+    component: Sobre,
   },
   {
     path: "*",

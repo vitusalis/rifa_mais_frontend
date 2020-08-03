@@ -187,6 +187,7 @@
 
 <script>
 import PaymentMethods from "../components/PaymentMethods";
+
 export default {
   name: "Info",
   components: { "payment-methods": PaymentMethods }
@@ -194,15 +195,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$section-margin: 45px;
-$side-margin: 30px;
-
-$warning: #ffb200;
-$danger: #b91e1e;
-$federal: #ff7b00;
-$orange: #f57502;
-$black: #000;
-$gray: #545b62;
+@import "../../public/css/variables.scss";
 
 @media screen and (max-width: 768px) {
   .info {

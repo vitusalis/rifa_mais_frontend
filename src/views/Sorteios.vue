@@ -89,7 +89,7 @@ $side-margin: 30px;
 .sorteios {
   text-align: center;
   margin: $section-margin $side-margin;
-  min-height: 75vh;
+  min-height: 80vh;
   .section {
     display: flex;
     flex-direction: row;

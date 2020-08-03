@@ -37,6 +37,7 @@
         <div class="left">
           <router-link class="link menu-action" to="/">Início</router-link>
           <router-link class="link menu-action" to="/sorteios">Nossas Rifas</router-link>
+          <router-link class="link menu-action" to="/about">Quem somos</router-link>
         </div>
         <div class="right">
           <router-link class="link menu-action" to="/iniciativas">Iniciativas</router-link>
@@ -93,7 +94,7 @@ ul {
 
 @media screen and (max-width: 768px) {
   nav {
-    min-height: 15vh;
+    min-height: 20vh;
     position: relative;
     display: flex;
     justify-content: center;
@@ -112,18 +113,16 @@ ul {
 
         .toggle {
           position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          right: 15px;
+          top: 50px;
+          right: 20px;
           z-index: 2;
-          transition: right 0.3s ease;
         }
       }
 
       .menu {
         flex-direction: column;
         background-color: #000;
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         height: 100vh;
@@ -190,15 +189,8 @@ ul {
       position: relative;
       flex-direction: row;
       padding: 50px $side-padding;
-      .logo-img {
-        position: absolute;
-        top: 0px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
       .menu {
         width: 100%;
-
         flex-direction: row;
         justify-content: space-between;
       }
@@ -206,7 +198,7 @@ ul {
         text-align: right;
       }
       .link {
-        padding: 15px;
+        padding: 10px;
       }
     }
   }
@@ -216,6 +208,10 @@ nav {
   .navigation {
     .logo-img {
       max-height: 120px;
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
   .links {

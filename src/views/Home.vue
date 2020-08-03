@@ -168,9 +168,9 @@ $gray: #545b62;
 }
 @media screen and (min-width: 1000px) {
   .home {
-    min-height: 85vh;
+    min-height: 80vh;
     .background {
-      height: 85vh;
+      height: 80vh;
     }
     .center {
       .title {

@@ -502,14 +502,14 @@ $gray: #545b62;
 $info: #138496;
 
 .full-height {
-  min-height: 75vh;
+  min-height: 80vh;
 }
 .section {
   text-align: center;
   margin: $section-padding $side-padding;
 }
 .info {
-  min-height: 75vh;
+  min-height: 80vh;
   position: relative;
 
   .flex {

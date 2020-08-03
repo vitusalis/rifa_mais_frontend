@@ -54,7 +54,7 @@ $gray: #545b62;
 .iniciativas {
   text-align: center;
   padding: $section-padding $side-padding;
-  min-height: 75vh;
+  min-height: 80vh;
   .section {
     // padding: $section-padding $side-padding;
     display: flex;
