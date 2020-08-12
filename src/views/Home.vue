@@ -115,7 +115,7 @@ export default {
           title: organ.name,
           subTitle: `A cada sorteio realizado uma parte dos lucros é destinada a uma boa causa como a ${organ.name}`,
           link: "/iniciativas",
-          image: "https://i.postimg.cc/j5W1wfFT/child-1864718-1920.jpg"
+          image: "https://i.postimg.cc/tJ3tJNBX/child-playing.jpg"
         });
       }
     } catch (error) {

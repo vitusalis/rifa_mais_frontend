@@ -116,26 +116,38 @@
     <div class="section contacts">
       <h2>Entre em contato</h2>
       <div class="contact">
-        <a href="https://wa.me/5521980066366" target="_blank" title="Whatsapp Rifaquesoma">
+        <div class="logo">
           <i class="fab fa-whatsapp fa-2x"></i>
-          <h5 v-text="' Via Whatsapp'"></h5>
-        </a>
+        </div>
+        <div class="body">
+          <a href="https://wa.me/5521980066366" target="_blank" title="Whatsapp Rifaquesoma">
+            <h5 v-text="' Via Whatsapp'"></h5>
+          </a>
+        </div>
       </div>
       <div class="contact">
-        <a
-          href="https://www.instagram.com/rifaquesoma/"
-          target="_blank"
-          title="Instagram Rifaquesoma"
-        >
+        <div class="logo">
           <i class="fab fa-instagram fa-2x"></i>
-          <h5 v-text="' Via Instagram'"></h5>
-        </a>
+        </div>
+        <div class="body">
+          <a
+            href="https://www.instagram.com/rifaquesoma/"
+            target="_blank"
+            title="Instagram Rifaquesoma"
+          >
+            <h5 v-text="' Via Instagram'"></h5>
+          </a>
+        </div>
       </div>
       <div class="contact">
-        <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Email Rifaquesoma">
+        <div class="logo">
           <i class="far fa-envelope fa-2x"></i>
-          <h5 v-text="' Via Email'"></h5>
-        </a>
+        </div>
+        <div class="body">
+          <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Email Rifaquesoma">
+            <h5 v-text="' Via Email'"></h5>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -321,12 +333,33 @@ export default {
 
     .contact {
       display: inline-block;
+      text-align: left;
       background-color: $orange;
       color: #fff;
-      width: 200px;
-      height: 100px;
+      width: 250px;
+      height: 80px;
       margin: 5px;
-      padding: 15px 30px;
+      position: relative;
+      .logo {
+        background-color: #fff;
+        color: $orange;
+        height: 100%;
+        width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+      }
+      .body {
+        width: 160px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        h5 {
+          margin: 0;
+        }
+      }
       a {
         color: inherit;
       }
