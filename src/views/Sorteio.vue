@@ -164,6 +164,22 @@
                       max="11"
                     ></b-form-input>
                   </b-form-group>
+
+                  <!-- Instagram -->
+                  <b-form-group
+                    id="ig-label"
+                    label="Instagram:"
+                    label-for="ig"
+                    description="Ex.: @rifaquesoma"
+                    required
+                  >
+                    <b-form-input
+                      id="ig"
+                      v-model="newTicket.instagram"
+                      type="text"
+                      placeholder="Seu Instagram"
+                    ></b-form-input>
+                  </b-form-group>
                 </form>
                 <div class="modal-footer">
                   <button
@@ -256,6 +272,7 @@ export default {
         email: "",
         phone: "",
         ticket_number: "",
+        instagram: "",
         raffle: this.$route.params.id
       },
       filteredTickets: {

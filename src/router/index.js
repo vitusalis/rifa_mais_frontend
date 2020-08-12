@@ -1,11 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import Sorteios from '../views/Sorteios.vue';
-import Sorteio from '../views/Sorteio.vue';
-import Iniciativas from '../views/Iniciativas.vue';
-import Info from '../views/Info.vue';
-import Sobre from '../views/Sobre.vue';
 
 Vue.use(VueRouter);
 
@@ -18,30 +13,30 @@ const routes = [
   {
     path: '/sorteios',
     name: 'Sorteios',
-    component: Sorteios,
+    component: () => import(/* webpackChunkName: Sorteios*/  "../views/Sorteios.vue"),
   },
 
   {
     path: '/sorteio/:id',
     name: 'Sorteio',
-    component: Sorteio,
+    component: () => import(/* webpackChunkName: Sorteio*/  "../views/Sorteio.vue"),
 
   },
   {
     path: '/iniciativas',
     name: 'Iniciativas',
-    component: Iniciativas,
+    component: () => import(/* webpackChunkName: Iniciativas*/  "../views/Iniciativas.vue"),
   },
 
   {
     path: '/info',
     name: 'Info',
-    component: Info,
+    component: () => import(/* webpackChunkName: Info*/  "../views/Info.vue"),
   },
   {
     path: '/about',
     name: 'Sobre',
-    component: Sobre,
+    component: () => import(/* webpackChunkName: Sobre*/  "../views/Sobre.vue"),
   },
   {
     path: "*",

@@ -155,6 +155,7 @@
 
     <div class="section terms" id="terms">
       <h2>Termos e Condições</h2>
+      <h5 class="text-secondary">Entregamos em todo o Brasil sem frete adicional</h5>
       <p>
         <span class="sub-title">Da participação nos certificados de contribuição premiável</span>
         <br />toda e qualquer pessoa maior de 18 anos pode participar de ações disponíveis.
@@ -317,7 +318,8 @@ export default {
       }
     }
     &.terms {
-      h2 {
+      h2,
+      h5 {
         text-align: center;
       }
       text-align: left;

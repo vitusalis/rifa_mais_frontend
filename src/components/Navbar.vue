@@ -2,14 +2,9 @@
   <nav>
     <div class="links">
       <ul>
-        <li>
+        <!-- <li>
           <a href="https://wa.me/5521980066366" target="_blank" title="Ligar">21 98006-6366</a>
-        </li>
-        <li>
-          <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
-            <i class="far fa-envelope fa-md link"></i>
-          </a>
-        </li>
+        </li>-->
 
         <li>
           <a href="https://wa.me/5521980066366" title="Nova conversa">
@@ -19,6 +14,12 @@
         <li>
           <a href="https://www.instagram.com/rifaquesoma/" target="_blank" title="Instagram">
             <i class="fab fa-instagram fa-md link"></i>
+          </a>
+        </li>
+
+        <li>
+          <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
+            <i class="far fa-envelope fa-md link"></i>
           </a>
         </li>
       </ul>
@@ -110,7 +111,6 @@ ul {
       .logo {
         position: relative;
         width: 100%;
-
         .toggle {
           position: absolute;
           top: 50px;
@@ -230,6 +230,8 @@ nav {
         .link {
           text-transform: capitalize;
           color: inherit;
+          transform: scale(1.3);
+          padding: 0 5px;
           &:hover {
             text-decoration: none;
           }
