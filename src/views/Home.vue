@@ -20,16 +20,16 @@
                   :to="{name: 'Sorteios', params:{id: item.linkId}}"
                   tag="button"
                   class="button"
-                >COMPRAR</router-link>
+                >COMPRAR SUA CENTENA VENCEDORA</router-link>
 
                 <router-link
                   v-else
                   :to="{name: 'Sorteios'}"
                   tag="button"
                   class="button"
-                >COMPRAR RIFAS</router-link>
+                >COMPRAR SUA CENTENA VENCEDORA</router-link>
 
-                <router-link v-if="item.link" :to="item.link" tag="button" class="button">SAIBA MAIS</router-link>
+                <!-- <router-link v-if="item.link" :to="item.link" tag="button" class="button">SAIBA MAIS</router-link> -->
               </div>
             </div>
           </div>
@@ -115,26 +115,13 @@ export default {
           title: organ.name,
           subTitle: `A cada sorteio realizado uma parte dos lucros é destinada a uma boa causa como a ${organ.name}`,
           link: "/iniciativas",
-          image: "https://i.postimg.cc/tJ3tJNBX/child-playing.jpg"
+          image: process.env.VUE_APP_partner_image
         });
       }
     } catch (error) {
       this.message = error.message;
     }
     this.slideshow();
-  },
-  mounted() {
-    // const slideshow = document.querySelector("div#slideshow");
-    // slideshow.addEventListener("mouseover", () => {
-    //   this.slideshow_on = false;
-    //   console.log(this.slideshow_on);
-    // });
-    // slideshow.addEventListener("mouseout", () => {
-    //   setTimeout(() => {
-    //     if (!this.slideshow_on) this.slideshow_on = true;
-    //   }, 2000);
-    //   console.log(this.slideshow_on);
-    // });
   }
 };
 </script>

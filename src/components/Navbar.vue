@@ -1,5 +1,8 @@
 <template>
   <nav>
+    <b-button variant="outline-light" class="toggle" @click="toggle('div#menu')">
+      <i class="fas fa-bars"></i>
+    </b-button>
     <div class="links">
       <ul>
         <!-- <li>
@@ -26,30 +29,20 @@
     </div>
     <div class="navigation">
       <div class="logo">
-        <router-link to="/" tag="a">
-          <img class="logo-img" src="../assets/Original on Transparent.png" alt="logo" />
+        <router-link to="/" tag="a" class="logo-link">
+          <img src="../assets/Original on Transparent.png" alt="logo" class="img" />
         </router-link>
-
-        <b-button variant="outline-light" class="toggle" @click="toggle('div#menu')">
-          <i class="fas fa-bars"></i>
-        </b-button>
       </div>
       <div class="menu hidden" id="menu">
-        <div class="left">
+        <div class="right">
           <router-link class="link menu-action" to="/">Início</router-link>
           <router-link class="link menu-action" to="/sorteios">Nossas Rifas</router-link>
           <router-link class="link menu-action" to="/about">Quem somos</router-link>
-        </div>
-        <div class="right">
-          <router-link class="link menu-action" to="/iniciativas">Iniciativas</router-link>
+          <!-- <router-link class="link menu-action" to="/iniciativas">Iniciativas</router-link> -->
           <router-link class="link menu-action" to="/info">Como funciona?</router-link>
         </div>
         <div class="menu-contact">
           <div class="icons">
-            <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
-              <i class="far fa-envelope fa-md link"></i>
-            </a>
-
             <a href="https://wa.me/5521980066366" title="Nova conversa">
               <i class="fab fa-whatsapp fa-md link"></i>
             </a>
@@ -57,8 +50,10 @@
             <a href="https://www.instagram.com/rifaquesoma/" target="_blank" title="Instagram">
               <i class="fab fa-instagram fa-md link"></i>
             </a>
+            <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
+              <i class="far fa-envelope fa-md link"></i>
+            </a>
           </div>
-          <a href="https://wa.me/5521980066366" target="_blank" title="Ligar">21 98006-6366</a>
         </div>
       </div>
     </div>
@@ -92,9 +87,76 @@ ul {
   margin: 0;
   padding: 0;
 }
+nav {
+  .navigation {
+    position: relative;
+    .logo {
+      .img {
+      }
+    }
+  }
+  .links {
+    text-align: right;
+    padding: 5px $side-padding;
+    border-bottom: 1px solid #1b1b1b;
+    color: #fff;
+    ul {
+      li {
+        display: inline;
+        margin: 0 10px;
+        color: inherit;
+        a {
+          color: inherit;
+        }
+        .link {
+          text-transform: capitalize;
+          color: inherit;
+          transform: scale(1.3);
+          padding: 0 5px;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
 
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px $side-padding;
+    .logo {
+      flex: 1;
+      .logo-link {
+        .img {
+          width: 100%;
+          max-width: 200px;
+          height: auto;
+        }
+      }
+    }
+    .link {
+      color: inherit;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .menu {
+      .link {
+        font-size: 1.3em;
+      }
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   nav {
+    .toggle {
+      position: absolute;
+      top: 50px;
+      right: 20px;
+      z-index: 2;
+    }
     min-height: 20vh;
     position: relative;
     display: flex;
@@ -104,21 +166,6 @@ ul {
     }
 
     .navigation {
-      flex-direction: column;
-      text-align: center;
-      width: 100%;
-
-      .logo {
-        position: relative;
-        width: 100%;
-        .toggle {
-          position: absolute;
-          top: 50px;
-          right: 20px;
-          z-index: 2;
-        }
-      }
-
       .menu {
         flex-direction: column;
         background-color: #000;
@@ -155,7 +202,9 @@ ul {
           margin-bottom: 15vh;
           display: flex;
           flex-direction: column;
+
           .icons {
+            text-align: center;
             a {
               margin: 10px;
               padding: 0;
@@ -164,7 +213,7 @@ ul {
           }
         }
       }
-      .left,
+
       .right {
         display: flex;
         flex-direction: column;
@@ -185,71 +234,15 @@ ul {
     .menu-contact {
       display: none;
     }
+    .links {
+    }
     .navigation {
-      position: relative;
-      flex-direction: row;
-      padding: 50px $side-padding;
       .menu {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      .right {
+        flex: 2;
         text-align: right;
-      }
-      .link {
-        padding: 10px;
-      }
-    }
-  }
-}
-
-nav {
-  .navigation {
-    .logo-img {
-      max-height: 120px;
-      position: absolute;
-      top: 5px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-  .links {
-    text-align: right;
-    padding: 5px $side-padding;
-    border-bottom: 1px solid #1b1b1b;
-    color: #fff;
-    ul {
-      li {
-        display: inline;
-        margin: 0 10px;
-        color: inherit;
-        a {
-          color: inherit;
-        }
         .link {
-          text-transform: capitalize;
-          color: inherit;
-          transform: scale(1.3);
-          padding: 0 5px;
-          &:hover {
-            text-decoration: none;
-          }
+          padding: 15px;
         }
-      }
-    }
-  }
-  .navigation {
-    .link {
-      color: inherit;
-      &:hover {
-        text-decoration: none;
-      }
-    }
-    .menu {
-      display: flex;
-      .link {
-        font-size: 1.3em;
       }
     }
   }

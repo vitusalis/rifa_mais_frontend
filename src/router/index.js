@@ -22,11 +22,11 @@ const routes = [
     component: () => import(/* webpackChunkName: Sorteio*/  "../views/Sorteio.vue"),
 
   },
-  {
-    path: '/iniciativas',
-    name: 'Iniciativas',
-    component: () => import(/* webpackChunkName: Iniciativas*/  "../views/Iniciativas.vue"),
-  },
+  // {
+  //   path: '/iniciativas',
+  //   name: 'Iniciativas',
+  //   component: () => import("../views/Iniciativas.vue"),
+  // },
 
   {
     path: '/info',

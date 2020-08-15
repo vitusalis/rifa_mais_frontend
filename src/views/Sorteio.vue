@@ -42,6 +42,7 @@
           </div>
         </div>
         <div class="section rifas">
+          <h3>COTAS🥇Clique e selecione quantas você quiser</h3>
           <div class="legenda">
             <b-button
               pill
@@ -68,6 +69,10 @@
               class="MIN"
               @click="filterSelectedNumbers('MIN')"
             >Meus Números ({{filteredTickets.mine.length}})</b-button>
+            <p>
+              Os numeros reservados só aparecerão em "Meus Números" no mesmo dispositivo e navegador em que foram reservados os números.
+              <br />Sempre verifique o nome que está associado no número
+            </p>
           </div>
 
           <div class="numeros" id="numeroSorteio">
@@ -90,167 +95,166 @@
                 <p class="content">{{item}}</p>
               </span>
             </span>
-
-            <!-- Reserva -->
-            <b-modal
-              id="reservaModal"
-              :title="'Reservar Rifa de ' + raffle.name "
-              header-text-variant="dark"
-              body-text-variant="dark"
-              footer-text-variant="dark"
-              hide-footer
-            >
-              <b-overlay :show="formOverlay" rounded="sm" :opacity="0">
-                <form id="novaReserva">
-                  <!-- RifaSelected -->
-                  <b-form-group
-                    id="number-label"
-                    label="Número Escolhido:"
-                    label-for="numberSelected"
-                    description="Quanto mais números você reservar, mais suas chances de ganhar!"
-                  >
-                    <b-button class="orange" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
-                  </b-form-group>
-
-                  <b-form-group
-                    id="name-label"
-                    label="Nome:"
-                    label-for="name"
-                    description="Ex.: Maria Silva"
-                    required
-                  >
-                    <b-form-input
-                      id="name"
-                      v-model="newTicket.name"
-                      type="text"
-                      required
-                      placeholder="Nome Completo"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <!-- Email -->
-                  <b-form-group
-                    id="email-label"
-                    label="Email:"
-                    label-for="email"
-                    description="Ex.: marisilva@gmail.com"
-                    required
-                  >
-                    <b-form-input
-                      id="email"
-                      v-model="newTicket.email"
-                      type="email"
-                      required
-                      placeholder="Seu email"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <!-- Phone -->
-                  <b-form-group
-                    id="phone-label"
-                    label="Telefone celular:"
-                    label-for="phone"
-                    description="Ex.: 21 99876 5432"
-                    required
-                  >
-                    <b-form-input
-                      id="phone"
-                      v-model="newTicket.phone"
-                      type="number"
-                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                      required
-                      placeholder="Seu telefone"
-                      min="11"
-                      max="11"
-                    ></b-form-input>
-                  </b-form-group>
-
-                  <!-- Instagram -->
-                  <b-form-group
-                    id="ig-label"
-                    label="Instagram:"
-                    label-for="ig"
-                    description="Ex.: @rifaquesoma"
-                    required
-                  >
-                    <b-form-input
-                      id="ig"
-                      v-model="newTicket.instagram"
-                      type="text"
-                      placeholder="Seu Instagram"
-                    ></b-form-input>
-                  </b-form-group>
-                </form>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                    @click="hideModal('reservaModal')"
-                  >Cancelar</button>
-
-                  <b-button variant="primary" class="float-right" @click="validarForm">Confirmar</b-button>
-                </div>
-              </b-overlay>
-            </b-modal>
-
-            <!-- Info Pagamento -->
-            <b-modal
-              id="infoModal"
-              :title="'Informação de  Rifa de ' + raffle.name "
-              header-text-variant="dark"
-              body-text-variant="dark"
-              footer-text-variant="dark"
-              hide-footer
-            >
-              <!-- RifaSelected -->
-              <b-form-group id="number-label" label="Número Escolhido:" label-for="numberSelected">
-                <b-button id="numberSelected" v-text="newTicket.ticket_number" class="orange"></b-button>
-              </b-form-group>
-
-              <h3>Informações Importantes</h3>
-              <span class="text-danger" style="font-weight:bold">
-                <p>
-                  Envie seu comprovante para o número
-                  <a
-                    href="https://wa.me/5521980066366"
-                    style="text-decoration: underline color:inherit"
-                    target="_blank"
-                  >21 98006-6366 via WhatsApp</a> (clique para enviar)
-                </p>
-
-                <ul>
-                  <li>Informando:</li>
-                  <li>1. O sorteio e o(s) número(s) reservado(s)</li>
-                  <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
-                  <li>3. E seu estado (ex: RJ, SP).</li>
-                </ul>
-              </span>
-              <br />
-              <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
-
-              <div class="modal-footer">
-                <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
-              </div>
-            </b-modal>
-
-            <!-- Alertas-->
-            <b-modal
-              id="alertModal"
-              title="Atenção"
-              header-text-variant="dark"
-              body-text-variant="dark"
-              footer-text-variant="dark"
-              hide-footer
-            >
-              <h5 v-if="message" v-text="message"></h5>
-              <div class="modal-footer">
-                <b-button variant="primary" @click="hideModal('alertModal')">Ok</b-button>
-              </div>
-            </b-modal>
           </div>
         </div>
       </div>
+      <!-- Reserva -->
+      <b-modal
+        id="reservaModal"
+        :title="'Reservar Rifa de ' + raffle.name "
+        header-text-variant="dark"
+        body-text-variant="dark"
+        footer-text-variant="dark"
+        hide-footer
+      >
+        <b-overlay :show="formOverlay" rounded="sm" :opacity="0">
+          <form id="novaReserva">
+            <!-- RifaSelected -->
+            <b-form-group
+              id="number-label"
+              label="Número Escolhido:"
+              label-for="numberSelected"
+              description="Quanto mais números você reservar, mais suas chances de ganhar!"
+            >
+              <b-button class="orange" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
+            </b-form-group>
+
+            <b-form-group
+              id="name-label"
+              label="Nome:"
+              label-for="name"
+              description="Ex.: Maria Silva"
+              required
+            >
+              <b-form-input
+                id="name"
+                v-model="newTicket.name"
+                type="text"
+                required
+                placeholder="Nome Completo"
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- Email -->
+            <b-form-group
+              id="email-label"
+              label="Email:"
+              label-for="email"
+              description="Ex.: marisilva@gmail.com"
+              required
+            >
+              <b-form-input
+                id="email"
+                v-model="newTicket.email"
+                type="email"
+                required
+                placeholder="Seu email"
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- Phone -->
+            <b-form-group
+              id="phone-label"
+              label="Telefone celular:"
+              label-for="phone"
+              description="Ex.: 21 99876 5432"
+              required
+            >
+              <b-form-input
+                id="phone"
+                v-model="newTicket.phone"
+                type="number"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
+                placeholder="Seu telefone"
+                min="11"
+                max="11"
+              ></b-form-input>
+            </b-form-group>
+
+            <!-- Instagram -->
+            <b-form-group
+              id="ig-label"
+              label="Instagram:"
+              label-for="ig"
+              description="Ex.: @rifaquesoma"
+              required
+            >
+              <b-form-input
+                id="ig"
+                v-model="newTicket.instagram"
+                type="text"
+                placeholder="Seu Instagram"
+              ></b-form-input>
+            </b-form-group>
+          </form>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click="hideModal('reservaModal')"
+            >Cancelar</button>
+
+            <b-button variant="primary" class="float-right" @click="validarForm">Confirmar</b-button>
+          </div>
+        </b-overlay>
+      </b-modal>
+
+      <!-- Info Pagamento -->
+      <b-modal
+        id="infoModal"
+        :title="'Informação de  Rifa de ' + raffle.name "
+        header-text-variant="dark"
+        body-text-variant="dark"
+        footer-text-variant="dark"
+        hide-footer
+      >
+        <!-- RifaSelected -->
+        <b-form-group id="number-label" label="Número Escolhido:" label-for="numberSelected">
+          <b-button id="numberSelected" v-text="newTicket.ticket_number" class="orange"></b-button>
+        </b-form-group>
+
+        <h3>Informações Importantes</h3>
+        <span class="text-danger" style="font-weight:bold">
+          <p>
+            Envie seu comprovante para o número
+            <a
+              href="https://wa.me/5521980066366"
+              style="text-decoration: underline color:inherit"
+              target="_blank"
+            >21 98006-6366 via WhatsApp</a> (clique para enviar)
+          </p>
+
+          <ul>
+            <li>Informando:</li>
+            <li>1. O sorteio e o(s) número(s) reservado(s)</li>
+            <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
+            <li>3. E seu estado (ex: RJ, SP).</li>
+          </ul>
+        </span>
+        <br />
+        <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
+
+        <div class="modal-footer">
+          <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
+        </div>
+      </b-modal>
+
+      <!-- Alertas-->
+      <b-modal
+        id="alertModal"
+        title="Atenção"
+        header-text-variant="dark"
+        body-text-variant="dark"
+        footer-text-variant="dark"
+        hide-footer
+      >
+        <h5 v-if="message" v-text="message"></h5>
+        <div class="modal-footer">
+          <b-button variant="primary" @click="hideModal('alertModal')">Ok</b-button>
+        </div>
+      </b-modal>
     </b-overlay>
   </div>
 </template>
@@ -579,16 +583,16 @@ $info: #138496;
       }
     }
   }
-  //por as cores: disponíveis( vermelho ),Reservados (azul), pagos (verde), meus números (amarelo).
+
   .AVA {
     // background-color: $black;
-    background-color: $danger;
+    background-color: $info;
     // border: 1px solid $gray;
     border: none;
   }
   .RES {
     // background-color: $warning;
-    background-color: $info;
+    background-color: $danger;
     border: none;
   }
   .PAI {

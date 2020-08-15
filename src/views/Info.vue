@@ -67,7 +67,7 @@
           <!-- <i class="far fa-hand-point-up fa-5x image"></i> -->
           <span class="image" style="font-size:6em">2</span>
           <div class="content">
-            <p>Selecione um ou mais números. Quanto mais números você selcionar, mais chances de ganhar</p>
+            <p>Selecione seus números. Quanto mais números você adquirir, mais chances de ganhar</p>
           </div>
         </div>
         <div class="step odd">
@@ -75,7 +75,7 @@
           <span class="image" style="font-size:6em">3</span>
           <div class="content">
             <p>
-              Faça o pagamento da(s) rifa(s) via tranferência bancária. E não se esqueça de mandar o comprovante para nós via
+              Faça o pagamento da(s) rifa(s) via tranferência bancária ou cartão de crédito pelo aplicativo pic pay. Não se esqueça de mandar o comprovante para nós via
               <a
                 href="https://wa.me/5521980066366"
                 target="_blank"
@@ -92,17 +92,19 @@
           <span class="image" style="font-size:6em">4</span>
           <div class="content">
             <p>
-              Aguarde o sorteio da loteria federal e ainda
-              <router-link
-                to="/iniciativas"
+              Aguarde o sorteio pela loteria federal e fique de olho no nosso
+              <a
+                href="https://www.instagram.com/rifaquesoma/"
+                target="_blank"
+                title="Instagram Rifaquesoma"
                 class="link"
-                title="Saiba como contribuir"
-              >contribua para uma boa causa.</router-link>
+              >Instagram Rifaquesoma</a>
+              você pode ser o próximo sorteado.
             </p>
           </div>
         </div>
       </div>
-      <p style="font-size:1.3em">
+      <!-- <p style="font-size:1.3em">
         A data do sorteio será sempre divulgada em nosso
         <a
           href="https://www.instagram.com/rifaquesoma/"
@@ -110,7 +112,7 @@
           title="Instagram Rifaquesoma"
           style="color:#fff; text-decoration:underline"
         >Instagram</a>
-      </p>
+      </p>-->
     </div>
 
     <div class="section contacts">
@@ -309,7 +311,7 @@ export default {
         }
         .content {
           background-color: rgba($color: #fff, $alpha: 1);
-          height: 200px;
+          height: 240px;
           padding: 20px;
           color: #000;
           display: flex;
