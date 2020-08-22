@@ -1,6 +1,11 @@
 <template>
   <nav>
-    <b-button variant="outline-light" class="toggle" @click="toggle('div#menu')">
+    <b-button
+      variant="outline-light"
+      class="toggle absolute"
+      @click="toggle('div#menu')"
+      id="toggle"
+    >
       <i class="fas fa-bars"></i>
     </b-button>
     <div class="links">
@@ -65,9 +70,15 @@ export default {
   methods: {
     toggle(id) {
       const el = document.querySelector(id);
-      if (el.classList.contains("hidden"))
+      const btn = document.querySelector("button#toggle");
+      if (el.classList.contains("hidden")) {
         el.classList.replace("hidden", "visible");
-      else el.classList.replace("visible", "hidden");
+
+        btn.classList.replace("absolute", "fixed");
+      } else {
+        el.classList.replace("visible", "hidden");
+        btn.classList.replace("fixed", "absolute");
+      }
     }
   },
   mounted() {
@@ -152,10 +163,15 @@ nav {
 @media screen and (max-width: 768px) {
   nav {
     .toggle {
-      position: absolute;
       top: 50px;
       right: 20px;
       z-index: 2;
+      &.absolute {
+        position: absolute;
+      }
+      &.fixed {
+        position: fixed;
+      }
     }
     min-height: 20vh;
     position: relative;

@@ -113,7 +113,7 @@ export default {
         const organ = organs[0];
         this.bannerSlide.push({
           title: organ.name,
-          subTitle: `A cada sorteio realizado uma parte dos lucros é destinada a uma boa causa como a ${organ.name}`,
+          subTitle: `A cada sorteio realizado, uma parte dos lucros é destinada a uma boa causa como ${organ.name}`,
           link: "/iniciativas",
           image: process.env.VUE_APP_partner_image
         });

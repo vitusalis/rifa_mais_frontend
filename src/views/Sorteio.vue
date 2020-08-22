@@ -3,259 +3,261 @@
     <div style="text-align:center">
       <h1 v-if="message && !raffle" v-text="message"></h1>
     </div>
-    <b-overlay :show="!raffle && !message" rounded="sm" :opacity="0" class="full-height">
-      <div class="raffle" v-if="raffle">
-        <div class="section info">
-          <h1 v-text="raffle.name"></h1>
-          <h4 class="text-secondary" v-text="formatSorteioDate(raffle.date)"></h4>
-          <div v-if="raffle" class="flex">
-            <div class="column picture">
-              <!-- <img class="img" :src="raffle.photos[0]" alt /> -->
-              <b-carousel
-                :interval="4000"
-                controls
-                background="#ababab"
-                img-width="500"
-                img-height="375"
-                style="text-shadow: 1px 1px 2px #333; max-width:700px"
-              >
-                <b-carousel-slide
-                  :img-src="raffle.cover ? raffle.cover: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
-                  class="carrousel-picture"
-                ></b-carousel-slide>
-
-                <div
-                  v-for="(photo, key) in [raffle.photo_1,raffle.photo_3,raffle.photo_4]"
-                  :key="key"
+    <div class="full-height">
+      <b-overlay :show="true" rounded="sm" :opacity="0" class="full-height">
+        <div class="raffle" v-if="raffle">
+          <div class="section info">
+            <h1 v-text="raffle.name"></h1>
+            <h4 class="text-secondary" v-text="formatSorteioDate(raffle.date)"></h4>
+            <div v-if="raffle" class="flex">
+              <div class="column picture">
+                <!-- <img class="img" :src="raffle.photos[0]" alt /> -->
+                <b-carousel
+                  :interval="4000"
+                  controls
+                  background="#ababab"
+                  img-width="500"
+                  img-height="375"
+                  style="text-shadow: 1px 1px 2px #333; max-width:700px"
                 >
                   <b-carousel-slide
-                    v-if="photo"
-                    :img-src="photo ? photo: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
+                    :img-src="raffle.cover ? raffle.cover: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
                     class="carrousel-picture"
                   ></b-carousel-slide>
-                </div>
-              </b-carousel>
-            </div>
-            <div class="column details" v-if="raffle.info">
-              <p v-for="info in raffle.info.split(';')" :key="info" v-text="info"></p>
+
+                  <div
+                    v-for="(photo, key) in [raffle.photo_1,raffle.photo_3,raffle.photo_4]"
+                    :key="key"
+                  >
+                    <b-carousel-slide
+                      v-if="photo"
+                      :img-src="photo ? photo: 'https://i.postimg.cc/CKspSPzh/not-found.png'"
+                      class="carrousel-picture"
+                    ></b-carousel-slide>
+                  </div>
+                </b-carousel>
+              </div>
+              <div class="column details" v-if="raffle.info">
+                <p v-for="info in raffle.info.split(';')" :key="info" v-text="info"></p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="section rifas">
-          <h3>COTAS🥇Clique e selecione quantas você quiser</h3>
-          <div class="legenda">
-            <b-button
-              pill
-              variant="light"
-              @click="filterSelectedNumbers()"
-            >Todos ({{filteredTickets.all.length}})</b-button>
-            <b-button
-              pill
-              class="AVA"
-              @click="filterSelectedNumbers('AVA')"
-            >Disponíveis ({{filteredTickets.avaliable.length}})</b-button>
-            <b-button
-              pill
-              class="RES"
-              @click="filterSelectedNumbers('RES')"
-            >Reservados ({{filteredTickets.reserved.length}})</b-button>
-            <b-button
-              pill
-              class="PAI"
-              @click="filterSelectedNumbers('PAI')"
-            >Pagos ({{filteredTickets.paid.length}})</b-button>
-            <b-button
-              pill
-              class="MIN"
-              @click="filterSelectedNumbers('MIN')"
-            >Meus Números ({{filteredTickets.mine.length}})</b-button>
-            <p>
-              Os numeros reservados só aparecerão em "Meus Números" no mesmo dispositivo e navegador em que foram reservados os números.
-              <br />Sempre verifique o nome que está associado no número
-            </p>
-          </div>
-
-          <div class="numeros" id="numeroSorteio">
-            <div v-if="selectedNumbers.length == 0">
-              <h4 class="text-secondary">Nenhum número disponível</h4>
+          <div class="section rifas">
+            <h3>COTAS🥇Clique e selecione quantas você quiser</h3>
+            <div class="legenda">
+              <b-button
+                pill
+                variant="light"
+                @click="filterSelectedNumbers()"
+              >Todos ({{filteredTickets.all.length}})</b-button>
+              <b-button
+                pill
+                class="AVA"
+                @click="filterSelectedNumbers('AVA')"
+              >Disponíveis ({{filteredTickets.avaliable.length}})</b-button>
+              <b-button
+                pill
+                class="RES"
+                @click="filterSelectedNumbers('RES')"
+              >Reservados ({{filteredTickets.reserved.length}})</b-button>
+              <b-button
+                pill
+                class="PAI"
+                @click="filterSelectedNumbers('PAI')"
+              >Pagos ({{filteredTickets.paid.length}})</b-button>
+              <b-button
+                pill
+                class="MIN"
+                @click="filterSelectedNumbers('MIN')"
+              >Meus Números ({{filteredTickets.mine.length}})</b-button>
+              <p>
+                Os numeros reservados só aparecerão em "Meus Números" no mesmo dispositivo e navegador em que foram reservados os números.
+                <br />Sempre verifique o nome que está associado no número
+              </p>
             </div>
 
-            <span v-for="(item, key) of selectedNumbers" :key="key">
-              <span
-                :class="'rifa ' + ticketStatus(item)"
-                :id="'ticket-'+item"
-                @click="showModal(item)"
-              >
-                <b-tooltip
-                  v-if="tooltipTitle(item) != 'Disponível'"
-                  :target="'ticket-'+item"
-                  triggers="hover"
-                  :title="tooltipTitle(item)"
-                ></b-tooltip>
-                <p class="content">{{item}}</p>
+            <div class="numeros" id="numeroSorteio">
+              <div v-if="selectedNumbers.length == 0">
+                <h4 class="text-secondary">Nenhum número disponível</h4>
+              </div>
+
+              <span v-for="(item, key) of selectedNumbers" :key="key">
+                <span
+                  :class="'rifa ' + ticketStatus(item)"
+                  :id="'ticket-'+item"
+                  @click="showModal(item)"
+                >
+                  <b-tooltip
+                    v-if="tooltipTitle(item) != 'Disponível'"
+                    :target="'ticket-'+item"
+                    triggers="hover"
+                    :title="tooltipTitle(item)"
+                  ></b-tooltip>
+                  <p class="content">{{item}}</p>
+                </span>
               </span>
-            </span>
+            </div>
           </div>
         </div>
+      </b-overlay>
+    </div>
+    <!-- Reserva -->
+    <b-modal
+      id="reservaModal"
+      :title="'Reservar Rifa de ' + raffle.name "
+      header-text-variant="dark"
+      body-text-variant="dark"
+      footer-text-variant="dark"
+      hide-footer
+    >
+      <b-overlay :show="formOverlay" rounded="sm" :opacity="0">
+        <form id="novaReserva">
+          <!-- RifaSelected -->
+          <b-form-group
+            id="number-label"
+            label="Número Escolhido:"
+            label-for="numberSelected"
+            description="Quanto mais números você reservar, mais suas chances de ganhar!"
+          >
+            <b-button class="orange" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
+          </b-form-group>
+
+          <b-form-group
+            id="name-label"
+            label="Nome:"
+            label-for="name"
+            description="Ex.: Maria Silva"
+            required
+          >
+            <b-form-input
+              id="name"
+              v-model="newTicket.name"
+              type="text"
+              required
+              placeholder="Nome Completo"
+            ></b-form-input>
+          </b-form-group>
+
+          <!-- Email -->
+          <b-form-group
+            id="email-label"
+            label="Email:"
+            label-for="email"
+            description="Ex.: marisilva@gmail.com"
+            required
+          >
+            <b-form-input
+              id="email"
+              v-model="newTicket.email"
+              type="email"
+              required
+              placeholder="Seu email"
+            ></b-form-input>
+          </b-form-group>
+
+          <!-- Phone -->
+          <b-form-group
+            id="phone-label"
+            label="Telefone celular:"
+            label-for="phone"
+            description="Ex.: 21 99876 5432"
+            required
+          >
+            <b-form-input
+              id="phone"
+              v-model="newTicket.phone"
+              type="number"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              required
+              placeholder="Seu telefone"
+              min="11"
+              max="11"
+            ></b-form-input>
+          </b-form-group>
+
+          <!-- Instagram -->
+          <b-form-group
+            id="ig-label"
+            label="Instagram:"
+            label-for="ig"
+            description="Ex.: @rifaquesoma"
+            required
+          >
+            <b-form-input
+              id="ig"
+              v-model="newTicket.instagram"
+              type="text"
+              placeholder="Seu Instagram"
+            ></b-form-input>
+          </b-form-group>
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            @click="hideModal('reservaModal')"
+          >Cancelar</button>
+
+          <b-button variant="primary" class="float-right" @click="validarForm">Confirmar</b-button>
+        </div>
+      </b-overlay>
+    </b-modal>
+
+    <!-- Info Pagamento -->
+    <b-modal
+      id="infoModal"
+      :title="'Informação de  Rifa de ' + raffle.name "
+      header-text-variant="dark"
+      body-text-variant="dark"
+      footer-text-variant="dark"
+      hide-footer
+    >
+      <!-- RifaSelected -->
+      <b-form-group id="number-label" label="Número Escolhido:" label-for="numberSelected">
+        <b-button id="numberSelected" v-text="newTicket.ticket_number" class="orange"></b-button>
+      </b-form-group>
+
+      <h3>Informações Importantes</h3>
+      <span class="text-danger" style="font-weight:bold">
+        <p>
+          Envie seu comprovante para o número
+          <a
+            href="https://wa.me/5521980066366"
+            style="text-decoration: underline color:inherit"
+            target="_blank"
+          >21 98006-6366 via WhatsApp</a> (clique para enviar)
+        </p>
+
+        <ul>
+          <li>Informando:</li>
+          <li>1. O sorteio e o(s) número(s) reservado(s)</li>
+          <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
+          <li>3. E seu estado (ex: RJ, SP).</li>
+        </ul>
+      </span>
+      <br />
+      <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
+
+      <div class="modal-footer">
+        <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
       </div>
-      <!-- Reserva -->
-      <b-modal
-        id="reservaModal"
-        :title="'Reservar Rifa de ' + raffle.name "
-        header-text-variant="dark"
-        body-text-variant="dark"
-        footer-text-variant="dark"
-        hide-footer
-      >
-        <b-overlay :show="formOverlay" rounded="sm" :opacity="0">
-          <form id="novaReserva">
-            <!-- RifaSelected -->
-            <b-form-group
-              id="number-label"
-              label="Número Escolhido:"
-              label-for="numberSelected"
-              description="Quanto mais números você reservar, mais suas chances de ganhar!"
-            >
-              <b-button class="orange" id="numberSelected" v-text="newTicket.ticket_number"></b-button>
-            </b-form-group>
+    </b-modal>
 
-            <b-form-group
-              id="name-label"
-              label="Nome:"
-              label-for="name"
-              description="Ex.: Maria Silva"
-              required
-            >
-              <b-form-input
-                id="name"
-                v-model="newTicket.name"
-                type="text"
-                required
-                placeholder="Nome Completo"
-              ></b-form-input>
-            </b-form-group>
-
-            <!-- Email -->
-            <b-form-group
-              id="email-label"
-              label="Email:"
-              label-for="email"
-              description="Ex.: marisilva@gmail.com"
-              required
-            >
-              <b-form-input
-                id="email"
-                v-model="newTicket.email"
-                type="email"
-                required
-                placeholder="Seu email"
-              ></b-form-input>
-            </b-form-group>
-
-            <!-- Phone -->
-            <b-form-group
-              id="phone-label"
-              label="Telefone celular:"
-              label-for="phone"
-              description="Ex.: 21 99876 5432"
-              required
-            >
-              <b-form-input
-                id="phone"
-                v-model="newTicket.phone"
-                type="number"
-                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                required
-                placeholder="Seu telefone"
-                min="11"
-                max="11"
-              ></b-form-input>
-            </b-form-group>
-
-            <!-- Instagram -->
-            <b-form-group
-              id="ig-label"
-              label="Instagram:"
-              label-for="ig"
-              description="Ex.: @rifaquesoma"
-              required
-            >
-              <b-form-input
-                id="ig"
-                v-model="newTicket.instagram"
-                type="text"
-                placeholder="Seu Instagram"
-              ></b-form-input>
-            </b-form-group>
-          </form>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-              @click="hideModal('reservaModal')"
-            >Cancelar</button>
-
-            <b-button variant="primary" class="float-right" @click="validarForm">Confirmar</b-button>
-          </div>
-        </b-overlay>
-      </b-modal>
-
-      <!-- Info Pagamento -->
-      <b-modal
-        id="infoModal"
-        :title="'Informação de  Rifa de ' + raffle.name "
-        header-text-variant="dark"
-        body-text-variant="dark"
-        footer-text-variant="dark"
-        hide-footer
-      >
-        <!-- RifaSelected -->
-        <b-form-group id="number-label" label="Número Escolhido:" label-for="numberSelected">
-          <b-button id="numberSelected" v-text="newTicket.ticket_number" class="orange"></b-button>
-        </b-form-group>
-
-        <h3>Informações Importantes</h3>
-        <span class="text-danger" style="font-weight:bold">
-          <p>
-            Envie seu comprovante para o número
-            <a
-              href="https://wa.me/5521980066366"
-              style="text-decoration: underline color:inherit"
-              target="_blank"
-            >21 98006-6366 via WhatsApp</a> (clique para enviar)
-          </p>
-
-          <ul>
-            <li>Informando:</li>
-            <li>1. O sorteio e o(s) número(s) reservado(s)</li>
-            <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
-            <li>3. E seu estado (ex: RJ, SP).</li>
-          </ul>
-        </span>
-        <br />
-        <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
-
-        <div class="modal-footer">
-          <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
-        </div>
-      </b-modal>
-
-      <!-- Alertas-->
-      <b-modal
-        id="alertModal"
-        title="Atenção"
-        header-text-variant="dark"
-        body-text-variant="dark"
-        footer-text-variant="dark"
-        hide-footer
-      >
-        <h5 v-if="message" v-text="message"></h5>
-        <div class="modal-footer">
-          <b-button variant="primary" @click="hideModal('alertModal')">Ok</b-button>
-        </div>
-      </b-modal>
-    </b-overlay>
+    <!-- Alertas-->
+    <b-modal
+      id="alertModal"
+      title="Atenção"
+      header-text-variant="dark"
+      body-text-variant="dark"
+      footer-text-variant="dark"
+      hide-footer
+    >
+      <h5 v-if="message" v-text="message"></h5>
+      <div class="modal-footer">
+        <b-button variant="primary" @click="hideModal('alertModal')">Ok</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -480,7 +482,7 @@ export default {
       this.formOverlay = false;
     }
   },
-  async created() {
+  async mounted() {
     try {
       this.raffle = await SorteioService.getSorteioById(this.$route.params.id);
 

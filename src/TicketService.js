@@ -14,8 +14,11 @@ class TicketService {
     }
 
     static async getTicketByRaffleId(raffle_id) {
-        let tickets = await this.getTickets()
-        return tickets.filter(el => el.raffle == raffle_id)
+        return axios.get(url + `?raffle=${raffle_id}`)
+            .then((res) => {
+                if (res.data) return res.data
+            })
+            .catch(() => { return { msg: "Tickets indisponíveis" } })
     }
 
     static insertTicket(ticket) {

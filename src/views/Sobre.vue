@@ -56,6 +56,7 @@ export default {
         }
 
         &.image {
+          display: none;
           img {
             max-width: 70%;
           }
