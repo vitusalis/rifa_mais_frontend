@@ -219,21 +219,26 @@
       </b-form-group>
 
       <h3>Informações Importantes</h3>
-      <span class="text-danger" style="font-weight:bold">
         <p>
-          Envie seu comprovante para o número
-          <a
+          Vá até nossa página inicial, desça e escolha a conta bancária de sua preferencia ou pague pelo cartão via pic pay
+        </p>
+      
+<span class="text-danger" style="font-weight:bold">
+        <p>
+          Envie seu comprovante para o número 21 98006-6366 via WhatsApp
+          (<a
             href="https://wa.me/5521980066366"
             style="text-decoration: underline color:inherit"
             target="_blank"
-          >21 98006-6366 via WhatsApp</a> (clique para enviar)
+          >clique aqui</a> para abrir a conversa)
         </p>
 
         <ul>
-          <li>Informando:</li>
+          <li style="font-size:1.5em" class="text-warning">Informando:</li>
           <li>1. O sorteio e o(s) número(s) reservado(s)</li>
           <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
           <li>3. E seu estado (ex: RJ, SP).</li>
+          <li style="text-decoration: underline"> Não se esqueça do comprovante de pagaamento</li>
         </ul>
       </span>
       <br />
@@ -363,7 +368,7 @@ export default {
         };
         const s = dict[status];
         if (this.filteredTickets[s].length) {
-          this.selectedNumbers = this.filteredTickets[s];
+          this.selectedNumbers = this.filteredTickets[s].sort((a,b) => a-b);
         } else {
           let newarray = this.raffle.tickets.filter(t => t.status == status);
           newarray = newarray.map(t => t.ticket_number);
@@ -371,7 +376,7 @@ export default {
             const mine_reserved = this.filteredTickets.mine.filter(t => !this.filteredTickets.paid.includes(t))
             newarray.push(...mine_reserved)
           }
-          this.filteredTickets[s] = newarray.sort();
+          this.filteredTickets[s] = newarray.sort((a,b) => a-b);
           this.selectedNumbers = this.filteredTickets[s];
         }
       } else this.selectedNumbers = this.filteredTickets.all;
