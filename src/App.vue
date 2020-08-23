@@ -14,7 +14,6 @@ export default {
   computed: {
     navHeight() {
       var nav = document.querySelector("nav");
-      console.log("Height: ", nav);
       return 153 + "px";
     }
   }

@@ -4,7 +4,7 @@
       <h1 v-if="message && !raffle" v-text="message"></h1>
     </div>
     <div class="full-height">
-      <b-overlay :show="true" rounded="sm" :opacity="0" class="full-height">
+      <b-overlay :show="!raffle" rounded="sm" :opacity="0" class="full-height">
         <div class="raffle" v-if="raffle">
           <div class="section info">
             <h1 v-text="raffle.name"></h1>
@@ -367,6 +367,10 @@ export default {
         } else {
           let newarray = this.raffle.tickets.filter(t => t.status == status);
           newarray = newarray.map(t => t.ticket_number);
+          if (s=='reserved'){
+            const mine_reserved = this.filteredTickets.mine.filter(t => !this.filteredTickets.paid.includes(t))
+            newarray.push(...mine_reserved)
+          }
           this.filteredTickets[s] = newarray.sort();
           this.selectedNumbers = this.filteredTickets[s];
         }
@@ -404,7 +408,8 @@ export default {
         let myTickets = [];
         this.raffle.tickets.map(t => {
           if (myTicketNumbers.includes(t._id)) {
-            if (t.status != "PAI") t.status = "MIN";
+            if (t.status == "PAI") t.status = "PAI";
+            else t.status = "MIN";
             myTickets.push(t.ticket_number);
             this.updateSpan(t.ticket_number);
           }
@@ -470,12 +475,10 @@ export default {
         else my_tickets = [ticket_id];
         localStorage.setItem(raffle_id, JSON.stringify(my_tickets));
 
-        // update mine and avaliable tickets
-        this.filteredTickets.mine.push(parseInt(this.newTicket.ticket_number));
-        this.updateSpan(parseInt(this.newTicket.ticket_number));
-        this.filteredTickets.avaliable = this.filteredTickets.avaliable.filter(
-          t => t != this.newTicket.ticket_number
-        );
+        this.raffle.tickets = await TicketService.getTicketByRaffleId(this.$route.params.id);
+        this.filteredTickets.reserved.push(parseInt(this.newTicket.ticket_number))
+        this.setMyTickets();
+
         this.$bvModal.show("infoModal");
       }
       this.hideModal("reservaModal");
@@ -501,8 +504,8 @@ export default {
 
       this.setMyTickets();
       this.filterSelectedNumbers("AVA");
-      this.filterSelectedNumbers("RES");
       this.filterSelectedNumbers("PAI");
+      this.filterSelectedNumbers("RES");
       this.filterSelectedNumbers();
     } catch (e) {
       this.message = e.msg;
