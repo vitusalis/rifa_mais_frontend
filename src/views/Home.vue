@@ -29,6 +29,15 @@
                   class="button"
                 >COMPRAR SUA CENTENA VENCEDORA</router-link>
 
+
+                <a v-if="item.link_title" :href="item.link" target="_blank">
+                <button 
+                tag="button"
+                class="button"
+                >{{item.link_title}}</button>
+                </a>
+
+
                 <!-- <router-link v-if="item.link" :to="item.link" tag="button" class="button">SAIBA MAIS</router-link> -->
               </div>
             </div>
@@ -114,7 +123,8 @@ export default {
         this.bannerSlide.push({
           title: organ.name,
           subTitle: `A cada sorteio realizado, uma parte dos lucros é destinada a uma boa causa como ${organ.name}`,
-          link: "/iniciativas",
+          link: organ.url,
+          link_title: "Conheça",
           image: process.env.VUE_APP_partner_image
         });
       }
