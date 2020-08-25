@@ -160,7 +160,7 @@
             id="phone-label"
             label="Telefone celular:"
             label-for="phone"
-            description="Ex.: 21 99876 5432"
+            description="Somente DDD e número. Ex.: 21998765432"
             required
           >
             <b-form-input
@@ -453,7 +453,7 @@ export default {
       const phoneDescription = document
         .querySelector("#phone-label")
         .querySelector("small");
-      if (phone.value.length < 11 || phone.value.length > 11) {
+      if (phone.value.length < 11 || phone.value.length > 16) {
         phoneDescription.innerHTML =
           "<span style='color: red' >Numero de telefone inválido</span>";
         formIsValidated = false;

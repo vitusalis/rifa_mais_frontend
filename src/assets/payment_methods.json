@@ -1,0 +1,51 @@
+{"paymentMethods": [
+    {
+
+      "name": "Bradesco",
+      "info": {
+        
+        "Agência": "0952-0",
+        "Conta Poupança": "1002102-2",
+        "CPF": "12691629775",
+        "Nome": "ALCIR ERNESTO DE SOUZA NETO"
+      },
+      "logo":
+        "https://logodownload.org/wp-content/uploads/2018/09/bradesco-logo-novo-2018-13.png"
+    },
+    
+
+    {
+      "name": "CAIXA ECONOMICA",
+      "info": {
+        
+        "Agência": "4147",
+        "Conta Poupança": "11398-3",
+        "Operação": "013",
+        "CPF": "12691629775",
+        "Nome": "ALCIR ERNESTO DE SOUZA NETO"
+      },
+      "logo":
+        "https://i.postimg.cc/vHS5z4zd/logo-caixa.png"
+    },
+    {
+      "name": "ITAÚ",
+      "info": {
+        "Agência": "5635",
+        "Conta Poupança": "26178-6",
+        "CPF": "12691629775",
+        "Nome": "ALCIR ERNESTO DE SOUZA NETO"
+      },
+      "logo":
+        "https://i.postimg.cc/2yY3TDqv/logo-itau.png"
+    },
+    {
+      "name": "PICPAY",
+      "info": {
+        "Nome": "@alcirneto",
+        "image": "https://i.postimg.cc/hGGDYCf0/picpay.png"
+      },
+      "logo":
+        "https://logodownload.org/wp-content/uploads/2018/05/picpay-logo-13.png"
+      
+    }
+  ]}
