@@ -7,27 +7,27 @@
           <i class="fas fa-phone-alt"></i>
           Telefone:
           <a
-            href="https://wa.me/5521980066366"
+            href="https://wa.me/5521912345678"
             title="Nova conversa"
-          >21 98006-6366</a>
+          >21 92134-5678</a>
         </li>
         <li>
           <i class="fas fa-envelope"></i>
           Email:
           <a
-            href="mailto:rifaquesoma@gmail.com"
+            href="mailto:rifamais@gmail.com"
             target="_blank"
             title="Enviar email"
-          >rifaquesoma@gmail.com</a>
+          >rifamais@gmail.com</a>
         </li>
         <li>
           <i class="fab fa-instagram"></i>
           Instagram:
           <a
-            href="https://www.instagram.com/rifaquesoma/"
+            href="https://www.instagram.com/rifamais/"
             target="_blank"
             title="Instagram"
-          >rifaquesoma</a>
+          >rifamais</a>
         </li>
       </ul>
     </div>

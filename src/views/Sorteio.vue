@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div style="min-height:80vh">
     <div style="text-align:center">
       <h1 v-if="message && !raffle" v-text="message"></h1>
     </div>
     <div class="full-height">
       <b-overlay :show="!raffle" rounded="sm" :opacity="0" class="full-height">
+      
         <div class="raffle" v-if="raffle">
           <div class="section info">
             <h1 v-text="raffle.name"></h1>
@@ -180,7 +181,7 @@
             id="ig-label"
             label="Instagram:"
             label-for="ig"
-            description="Ex.: @rifaquesoma"
+            description="Ex.: @rifamais"
             required
           >
             <b-form-input
@@ -225,9 +226,9 @@
       
 <span class="text-danger" style="font-weight:bold">
         <p>
-          Envie seu comprovante para o número 21 98006-6366 via WhatsApp
+          Envie seu comprovante para o número 21 92134-5678 via WhatsApp
           (<a
-            href="https://wa.me/5521980066366"
+            href="https://wa.me/5521912345678"
             style="text-decoration: underline color:inherit"
             target="_blank"
           >clique aqui</a> para abrir a conversa)

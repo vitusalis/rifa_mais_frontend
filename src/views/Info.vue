@@ -5,47 +5,6 @@
       class="text-secondary"
     >Aqui você encontra como participar, nossas formas de pagamento e nossas formas de contato</h5>
 
-    <!-- <div class="section information">
-      <h2>Como Funciona</h2>
-      <div class="how-it-works">
-         <div class="row">
-          <div class="step">
-            <div class="background">1</div>
-            <div class="foreground">Escolha o sorteio do qual deseja participar</div>
-          </div>
-          <div class="step">
-            <div class="background">2</div>
-            <div class="foreground">Escolha o sorteio do qual deseja participar</div>
-          </div>
-          <div class="step">
-            <div class="background">3</div>
-            <div class="foreground">Escolha o sorteio do qual deseja participar</div>
-          </div>
-          <div class="step">
-            <div class="background">4</div>
-            <div class="foreground">Escolha o sorteio do qual deseja participar</div>
-          </div>
-        </div>
-
-        <p>Nossos sorteios são feitos através da loteria federal</p>
-        <p>
-          A data do sorteio será sempre divulgada em nosso
-          <a
-            href="https://www.instagram.com/rifaquesoma/"
-            target="_blank"
-            title="Instagram Rifaquesoma"
-            style="color:#fff; text-decoration:underline"
-          >Instagram</a>
-        </p>
-        <p>Você reserva um número equivalente aos últimos 3 dígitos do número sorteado na loteria federal</p>
-        <p>
-          Ex.: Se você reservou os números 142, 509 e 030,
-          <br />e o número sorteado na loteria federal for 021509,
-          <br />você é o ganhador do soteio Rifa que Soma!
-        </p>
-      </div>
-    </div>-->
-
     <div class="section instructions">
       <h2>Como participar</h2>
       <div class="steps">
@@ -77,9 +36,9 @@
             <p>
               Faça o pagamento da(s) rifa(s) via tranferência bancária ou cartão de crédito pelo aplicativo pic pay. Não se esqueça de mandar o comprovante para nós via
               <a
-                href="https://wa.me/5521980066366"
+                href="https://wa.me/5521981234567"
                 target="_blank"
-                title="Whatsapp Rifaquesoma"
+                title="Whatsapp Rifamais"
                 class="link"
               >
                 <span>whatsapp</span>
@@ -94,11 +53,11 @@
             <p>
               Aguarde o sorteio pela loteria federal e fique de olho no nosso
               <a
-                href="https://www.instagram.com/rifaquesoma/"
+                href="https://www.instagram.com/rifamais/"
                 target="_blank"
-                title="Instagram Rifaquesoma"
+                title="Instagram Rifamais"
                 class="link"
-              >Instagram Rifaquesoma</a>
+              >Instagram Rifamais</a>
               você pode ser o próximo sorteado.
             </p>
           </div>
@@ -107,9 +66,9 @@
       <!-- <p style="font-size:1.3em">
         A data do sorteio será sempre divulgada em nosso
         <a
-          href="https://www.instagram.com/rifaquesoma/"
+          href="https://www.instagram.com/rifamais/"
           target="_blank"
-          title="Instagram Rifaquesoma"
+          title="Instagram Rifamais"
           style="color:#fff; text-decoration:underline"
         >Instagram</a>
       </p>-->
@@ -122,7 +81,7 @@
           <i class="fab fa-whatsapp fa-2x"></i>
         </div>
         <div class="body">
-          <a href="https://wa.me/5521980066366" target="_blank" title="Whatsapp Rifaquesoma">
+          <a href="https://wa.me/5521912345678" target="_blank" title="Whatsapp Rifamais">
             <h5 v-text="' Via Whatsapp'"></h5>
           </a>
         </div>
@@ -133,9 +92,9 @@
         </div>
         <div class="body">
           <a
-            href="https://www.instagram.com/rifaquesoma/"
+            href="https://www.instagram.com/rifamais/"
             target="_blank"
-            title="Instagram Rifaquesoma"
+            title="Instagram Rifamais"
           >
             <h5 v-text="' Via Instagram'"></h5>
           </a>
@@ -146,7 +105,7 @@
           <i class="far fa-envelope fa-2x"></i>
         </div>
         <div class="body">
-          <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Email Rifaquesoma">
+          <a href="mailto:rifamais@gmail.com" target="_blank" title="Email Rifamais">
             <h5 v-text="' Via Email'"></h5>
           </a>
         </div>
@@ -154,49 +113,6 @@
     </div>
 
     <payment-methods />
-
-    <div class="section terms" id="terms">
-      <h2>Termos e Condições</h2>
-      <h5 class="text-secondary">Entregamos em todo o Brasil sem frete adicional</h5>
-      <p>
-        <span class="sub-title">Da participação nos certificados de contribuição premiável</span>
-        <br />toda e qualquer pessoa maior de 18 anos pode participar de ações disponíveis.
-      </p>
-      <p>
-        <span class="sub-title">Da definição do ganhador</span>
-        <br />O ganhador do sorteio será sempre o participante que tiver seu nome e celular gravados no bilhete premiado. No caso de pagamento em duplicidade, ou seja, em casos raros onde duas pessoas clicam no mesmo bilhete simultaneamente o ganhador do sorteio será o participante que tiver o nome e celular gravados no bilhete no momento do sorteio. O participante que no caso de compra em duplicidade não tiver o nome gravado no bilhete deverá solicitar reembolso do valor pago pelo bilhete em questão.
-      </p>
-      <p>
-        <span class="sub-title">Do cancelamento do certificado de contribuição premiável</span>
-        <br />O site poderá, sem aviso prévio, cancelar qualquer ação que viole um ou mais termos aqui dispostos.
-        <br />O criador da ação poderá realizar o cancelamento da mesma na tela de edição da ação.
-      </p>
-      <span>
-        <span class="sub-title">Do reembolso</span>
-        <p>O reembolso de bilhetes ocorre exclusivamente em casos de cancelamento da ação, ou seja, o criador da ação ou site não se obriga a reembolsar participantes que adquirirem bilhetes presencialmente ou on-line caso a ação não tenha sido cancelada.</p>
-        <p
-          style="text-transform:uppercase"
-        >o reembolso de bilhetes ocorre exclusivamente em casos de cancelamento da ação. Não estando obrigado ao site ou ao organizador reembolsar participantes no caso da ação não ser cancelada</p>
-      </span>
-      <span>
-        <span class="sub-title">Das proibições</span>
-        <br />É completamente vedado o uso de perfis falsos visando criar ações sem a genuína intenção de realizá-las seguindo os termos aqui dispostos.
-        <br />É completamente vedado a participação do organizador em sua própria ação.
-        <br />O site pode alterar a qualquer momento estes termos visando melhorar a qualidade do serviço oferecido.
-        <br />O site informará a todos os usuários sempre que ocorrer uma alteração nos termos de uso e o usuários deverá aceitar as mudanças para continuar utilizando o site.
-      </span>
-      <p>
-        Todas as nossas informações são passadas em nosso principal canal de contato,
-        <a
-          href="https://www.instagram.com/rifaquesoma/"
-          target="_blank"
-          title="Instagram Rifaquesoma"
-          style="color:#fff; text-decoration:underline"
-        >Instagram @rifaquesoma</a>
-        .
-        Siga, ative as notificações e fique sempre por dentro das datas, regras e novos sorteios.
-      </p>
-    </div>
   </div>
 </template>
 

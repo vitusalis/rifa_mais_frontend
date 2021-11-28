@@ -1,4 +1,4 @@
-# rifa_que_soma
+# rifa_mais
 
 ## Project setup
 ```

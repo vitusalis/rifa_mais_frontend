@@ -6,14 +6,14 @@
     <div class="main">
       <div class="panel image">
         <img
-          src="../assets/original_on_transparent_500.png"
+          src="../assets/Original on Transparent.png"
           alt="Quem somos - imagem"
           title="Quem somos"
         />
       </div>
       <div class="panel">
         <p>
-          Rifa que Soma, uma empresa formada de um simples pensamento :
+          Rifa Mais, uma empresa formada de um simples pensamento :
           <span
             class="highlight"
           >“ COMO PODEMOS REALIZAR SONHOS E AO MESMO TEMPO AJUDAR PESSOAS? ”</span>
@@ -21,12 +21,12 @@
           você concorrer a prêmios de alto valor financeiro, e o melhor, ao mesmo tempo ajudar a mudar a vida de famílias em todo o Brasil. E prentendemos em breve expandir para o mundo todo.
           <br />Cada prêmio terá sua quantia especifica de doação, mantendo a regra de sempre doarmos mais de 5.000,00 por prêmio e ajudará a uma causa específica, que vocês podem acompanhar através do Instagram
           <a
-            href="https://www.instagram.com/rifaquesoma/"
+            href="https://www.instagram.com/rifamais/"
             target="_blank"
             title="Instagram"
             style="color:#fff"
             class="link-highlight"
-          >@rifaquesoma</a>
+          >@rifamais</a>
           e do nosso canal no YouTube.
           <!-- EX: Enormes doações para ONGS, greenpeace, AACD, INCA, OMS, comunidades carentes, etc. -->
           <br />NOSSO SONHO É REALIZAR O SEU E TORNAR O MUNDO UM LUGAR MELHOR.

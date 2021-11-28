@@ -11,22 +11,22 @@
     <div class="links">
       <ul>
         <!-- <li>
-          <a href="https://wa.me/5521980066366" target="_blank" title="Ligar">21 98006-6366</a>
+          <a href="https://wa.me/5521912345678" target="_blank" title="Ligar">21 92134-5678</a>
         </li>-->
 
         <li>
-          <a href="https://wa.me/5521980066366" title="Nova conversa">
+          <a href="https://wa.me/5521912345678" title="Nova conversa">
             <i class="fab fa-whatsapp fa-md link"></i>
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/rifaquesoma/" target="_blank" title="Instagram">
+          <a href="https://www.instagram.com/rifamais/" target="_blank" title="Instagram">
             <i class="fab fa-instagram fa-md link"></i>
           </a>
         </li>
 
         <li>
-          <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
+          <a href="mailto:rifamais@gmail.com" target="_blank" title="Enviar email">
             <i class="far fa-envelope fa-md link"></i>
           </a>
         </li>
@@ -48,14 +48,14 @@
         </div>
         <div class="menu-contact">
           <div class="icons">
-            <a href="https://wa.me/5521980066366" title="Nova conversa">
+            <a href="https://wa.me/5521912345678" title="Nova conversa">
               <i class="fab fa-whatsapp fa-md link"></i>
             </a>
 
-            <a href="https://www.instagram.com/rifaquesoma/" target="_blank" title="Instagram">
+            <a href="https://www.instagram.com/rifamais/" target="_blank" title="Instagram">
               <i class="fab fa-instagram fa-md link"></i>
             </a>
-            <a href="mailto:rifaquesoma@gmail.com" target="_blank" title="Enviar email">
+            <a href="mailto:rifamais@gmail.com" target="_blank" title="Enviar email">
               <i class="far fa-envelope fa-md link"></i>
             </a>
           </div>
