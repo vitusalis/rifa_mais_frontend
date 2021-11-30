@@ -42,9 +42,9 @@
           <router-link class="link" to="/sorteios">Nossas Rifas</router-link>
         </li>
 
-        <li>
+        <!-- <li>
           <router-link class="link" to="/iniciativas">iniciativas</router-link>
-        </li>
+        </li> -->
         <li>
           <router-link class="link" to="/info">Informações</router-link>
         </li>

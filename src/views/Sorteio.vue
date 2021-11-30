@@ -156,6 +156,23 @@
             ></b-form-input>
           </b-form-group>
 
+          <!-- CPF -->
+          <b-form-group
+            id="cpf-label"
+            label="CPF:"
+            label-for="cpfCnpj"
+            description="Ex.: 12345678900"
+            required
+          >
+            <b-form-input
+              id="cpfCnpj"
+              v-model="newTicket.cpfCnpj"
+              type="text"
+              required
+              placeholder="Seu cpf"
+            ></b-form-input>
+          </b-form-group>
+
           <!-- Phone -->
           <b-form-group
             id="phone-label"
@@ -219,31 +236,41 @@
         <b-button id="numberSelected" v-text="newTicket.ticket_number" class="orange"></b-button>
       </b-form-group>
 
-      <h3>Informações Importantes</h3>
-        <p>
-          Vá até nossa página inicial, desça e escolha a conta bancária de sua preferencia ou pague pelo cartão via pic pay
-        </p>
-      
-<span class="text-danger" style="font-weight:bold">
-        <p>
-          Envie seu comprovante para o número 21 92134-5678 via WhatsApp
-          (<a
-            href="https://wa.me/5521912345678"
-            style="text-decoration: underline color:inherit"
-            target="_blank"
-          >clique aqui</a> para abrir a conversa)
-        </p>
+      <div v-if="paymentLink">
+        Acesse seu link de pagamento aqui.
+        <br/>
+        <a :href="paymentLink" target="_blank"> {{paymentLink}} </a>
+        <br/>
+        Ele expira em 1 dia.
+      </div>
+      <div v-else>
+        <h3>Informações Importantes</h3>
+          <p>
+            Vá até nossa página inicial, desça e escolha a conta bancária de sua preferencia ou pague pelo cartão via pic pay
+          </p>
+        
+  <span class="text-danger" style="font-weight:bold">
+          <p>
+            Envie seu comprovante para o número 21 92134-5678 via WhatsApp
+            (<a
+              href="https://wa.me/5521912345678"
+              style="text-decoration: underline color:inherit"
+              target="_blank"
+            >clique aqui</a> para abrir a conversa)
+          </p>
 
-        <ul>
-          <li style="font-size:1.5em" class="text-warning">Informando:</li>
-          <li>1. O sorteio e o(s) número(s) reservado(s)</li>
-          <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
-          <li>3. E seu estado (ex: RJ, SP).</li>
-          <li style="text-decoration: underline"> Não se esqueça do comprovante de pagaamento</li>
-        </ul>
-      </span>
-      <br />
-      <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
+          <ul>
+            <li style="font-size:1.5em" class="text-warning">Informando:</li>
+            <li>1. O sorteio e o(s) número(s) reservado(s)</li>
+            <li>2. Seu nome completo (o mesmo usado na forma de pagamento)</li>
+            <li>3. E seu estado (ex: RJ, SP).</li>
+            <li style="text-decoration: underline"> Não se esqueça do comprovante de pagaamento</li>
+          </ul>
+        </span>
+        <br />
+        <p>Após 2 dias úteis sem confirmação de pagamento os números reservados serão disponibilizados novamente</p>
+
+      </div>
 
       <div class="modal-footer">
         <b-button variant="primary" @click="hideModal('infoModal')">Ok</b-button>
@@ -285,6 +312,7 @@ export default {
         phone: "",
         ticket_number: "",
         instagram: "",
+        cpfCnpj: "",
         raffle: this.$route.params.id
       },
       filteredTickets: {
@@ -293,7 +321,8 @@ export default {
         paid: [],
         mine: [],
         all: []
-      }
+      },
+      paymentLink: null
     };
   },
 
@@ -342,6 +371,8 @@ export default {
       } else;
     },
     hideModal(id) {
+      if (id == 'infoModal')
+        this.paymentLink = null
       this.$bvModal.hide(id);
     },
 
@@ -439,6 +470,7 @@ export default {
         formIsValidated = false;
       } else emailDescription.innerHTML = "Ex.: marisilva@gmail.com";
 
+
       const name = form.querySelector("#name");
       const nameDescription = document
         .querySelector("#name-label")
@@ -449,6 +481,18 @@ export default {
           "<span style='color: red' >Nome muito curto</span>";
         formIsValidated = false;
       } else nameDescription.innerHTML = "Ex.: Maria Silva";
+
+
+      const cpf = form.querySelector("#cpfCnpj");
+      const cpfDescription = document
+        .querySelector("#cpf-label")
+        .querySelector("small");
+
+      if (cpf.value.length < 11) {
+        cpfDescription.innerHTML =
+          "<span style='color: red' >CPF muito curto</span>";
+        formIsValidated = false;
+      } else nameDescription.innerHTML = "Ex.: 12345678900";
 
       const phone = form.querySelector("#phone");
       const phoneDescription = document
@@ -485,10 +529,14 @@ export default {
         this.filteredTickets.reserved.push(parseInt(this.newTicket.ticket_number))
         this.setMyTickets();
 
+
+        this.paymentLink = response.payment_link
         this.$bvModal.show("infoModal");
       }
       this.hideModal("reservaModal");
       this.formOverlay = false;
+
+      
     }
   },
   async mounted() {
