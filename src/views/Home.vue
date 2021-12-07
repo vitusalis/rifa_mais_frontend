@@ -67,30 +67,7 @@ export default {
     };
   },
   methods: {
-    slideshow() {
-      setInterval(() => {
-        if (this.slideshow_on) {
-          const slideshow = document.querySelector("div#slideshow");
-          if (slideshow) {
-            const slides = Array.from(
-              slideshow.getElementsByClassName("slide")
-            );
-            let current_slide = Array.from(
-              slideshow.getElementsByClassName(`slide-${this.slide_index}`)
-            )[0];
-            current_slide = Array.from(
-              slideshow.getElementsByClassName(`slide-${this.slide_index}`)
-            )[0];
-            const next_slide = slides.find(e => e != current_slide);
-            if (current_slide) {
-              current_slide.classList.remove("visible");
-              next_slide.classList.add("visible");
-              this.slide_index = next_slide.id.split("slide-")[1];
-            }
-          }
-        }
-      }, 8000);
-    },
+    slideshow() {},
     getDescription(date) {
       if (date) {
         const days = Math.ceil(
@@ -107,17 +84,17 @@ export default {
       if (response.msg) this.message = response.msg;
       else {
         const raffles = response;
-        let sorteio = response.filter(r => r.status == "ACT")[0];
-        if (!sorteio) sorteio = raffles[0];
-        this.bannerSlide.push({
-          title: `CONCORRA A UM ${sorteio.name.toUpperCase()}`,
-          subTitle: `Apenas R$ ${sorteio.ticket_price}`,
-          description: this.getDescription(sorteio.date),
-          image: sorteio.cover
-            ? sorteio.cover
-            : "https://i.postimg.cc/CKspSPzh/not-found.png",
-          linkId: sorteio.id
-        });
+        for (const sorteio of response.filter(r => r.status == "ACT")){
+          this.bannerSlide.push({
+            title: `CONCORRA A UM ${sorteio.name.toUpperCase()}`,
+            subTitle: `Apenas R$ ${sorteio.ticket_price}`,
+            description: this.getDescription(sorteio.date),
+            image: sorteio.cover
+              ? sorteio.cover
+              : "https://i.postimg.cc/CKspSPzh/not-found.png",
+            linkId: sorteio.id
+          });
+        }
         // const organs = companies.companies;
         // const organ = organs[0];
         // this.bannerSlide.push({
