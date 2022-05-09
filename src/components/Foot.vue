@@ -15,16 +15,16 @@
           <i class="fas fa-envelope"></i>
           Email:
           <a
-            href="mailto:rifamais@gmail.com"
+            href="mailto:victorsalles@me.com"
             target="_blank"
             title="Enviar email"
-          >rifamais@gmail.com</a>
+          >victorsalles@me.com</a>
         </li>
         <li>
           <i class="fab fa-instagram"></i>
           Instagram:
           <a
-            href="https://www.instagram.com/rifamais/"
+            href="https://www.instagram.com/vitusalis/"
             target="_blank"
             title="Instagram"
           >rifamais</a>

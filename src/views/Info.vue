@@ -36,9 +36,9 @@
             <p>
               Faça o pagamento da(s) rifa(s) via tranferência bancária ou cartão de crédito pelo aplicativo pic pay. Não se esqueça de mandar o comprovante para nós via
               <a
-                href="https://wa.me/5521981234567"
+                href="https://wa.me/5521993728036"
                 target="_blank"
-                title="Whatsapp Rifamais"
+                title="Whatsapp vitusalis"
                 class="link"
               >
                 <span>whatsapp</span>
@@ -53,7 +53,7 @@
             <p>
               Aguarde o sorteio pela loteria federal e fique de olho no nosso
               <a
-                href="https://www.instagram.com/rifamais/"
+                href="https://www.instagram.com/vitusalis/"
                 target="_blank"
                 title="Instagram Rifamais"
                 class="link"
@@ -66,7 +66,7 @@
       <!-- <p style="font-size:1.3em">
         A data do sorteio será sempre divulgada em nosso
         <a
-          href="https://www.instagram.com/rifamais/"
+          href="https://www.instagram.com/vitusalis/"
           target="_blank"
           title="Instagram Rifamais"
           style="color:#fff; text-decoration:underline"
@@ -81,7 +81,7 @@
           <i class="fab fa-whatsapp fa-2x"></i>
         </div>
         <div class="body">
-          <a href="https://wa.me/5521912345678" target="_blank" title="Whatsapp Rifamais">
+          <a href="https://wa.me/5521993728036" target="_blank" title="Whatsapp Rifamais">
             <h5 v-text="' Via Whatsapp'"></h5>
           </a>
         </div>
@@ -92,7 +92,7 @@
         </div>
         <div class="body">
           <a
-            href="https://www.instagram.com/rifamais/"
+            href="https://www.instagram.com/vitusalis/"
             target="_blank"
             title="Instagram Rifamais"
           >
@@ -105,7 +105,7 @@
           <i class="far fa-envelope fa-2x"></i>
         </div>
         <div class="body">
-          <a href="mailto:rifamais@gmail.com" target="_blank" title="Email Rifamais">
+          <a href="mailto:victorsalles@me.com" target="_blank" title="Email Rifamais">
             <h5 v-text="' Via Email'"></h5>
           </a>
         </div>

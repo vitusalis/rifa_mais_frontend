@@ -20,13 +20,13 @@
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/rifamais/" target="_blank" title="Instagram">
+          <a href="https://www.instagram.com/vitusalis/" target="_blank" title="Instagram">
             <i class="fab fa-instagram fa-md link"></i>
           </a>
         </li>
 
         <li>
-          <a href="mailto:rifamais@gmail.com" target="_blank" title="Enviar email">
+          <a href="mailto:victorsalles@me.com" target="_blank" title="Enviar email">
             <i class="far fa-envelope fa-md link"></i>
           </a>
         </li>
@@ -52,10 +52,10 @@
               <i class="fab fa-whatsapp fa-md link"></i>
             </a>
 
-            <a href="https://www.instagram.com/rifamais/" target="_blank" title="Instagram">
+            <a href="https://www.instagram.com/vitusalis/" target="_blank" title="Instagram">
               <i class="fab fa-instagram fa-md link"></i>
             </a>
-            <a href="mailto:rifamais@gmail.com" target="_blank" title="Enviar email">
+            <a href="mailto:victorsalles@me.com" target="_blank" title="Enviar email">
               <i class="far fa-envelope fa-md link"></i>
             </a>
           </div>

@@ -21,7 +21,7 @@
           você concorrer a prêmios de alto valor financeiro, e o melhor, ao mesmo tempo ajudar a mudar a vida de famílias em todo o Brasil. E prentendemos em breve expandir para o mundo todo.
           <br />Cada prêmio terá sua quantia especifica de doação, mantendo a regra de sempre doarmos mais de 5.000,00 por prêmio e ajudará a uma causa específica, que vocês podem acompanhar através do Instagram
           <a
-            href="https://www.instagram.com/rifamais/"
+            href="https://www.instagram.com/vitusalis"
             target="_blank"
             title="Instagram"
             style="color:#fff"
